@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
+	<link rel="stylesheet" href="blue_theme.css" />
 
 	<link rel="stylesheet" href="style.css" />
 	<link rel="apple-touch-icon" href="appicon.png" />
@@ -26,7 +27,7 @@
 <div data-role="page" id="one">
 
 	<div data-role="header">
-		<h1>Local</h1>
+		<h1>disgo</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">	

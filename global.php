@@ -9,6 +9,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
+	<link rel="stylesheet" href="blue_theme.css" />
+
 	<link rel="stylesheet" href="style.css" />
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
@@ -22,7 +24,7 @@
 <div data-role="page" id="filter">
 
 	<div data-role="header">
-		<a href="global.php" data-icon="refresh" class = "top_bar_button"></a>
+		<a href="global.php" data-icon="refresh" ></a>
 		<h1>discover</h1>
 
 	</div><!-- /header -->
@@ -38,25 +40,7 @@
 </div><!-- /page -->
 
 <script type="text/javascript">
-		$('#filter').live( 'pageinit',function(event){
-			$(".taphold").on('taphold', function(event){
-				alert("You tapped and held");
-			});
-			
-			$(".tap").on('tap', function(event){
-				alert("You tapped!");
-			});
-			
-			$(".swiperight").on('swiperight', function(event){
-				event.stopImmediatePropagation();
-				alert("You swiped right!");
-			});
-			
-			$(".swipeleft").on('swipeleft', function(event){
-				event.stopImmediatePropagation() 
-				alert("You swiped left!");
-			});
-		});
+		
 </script>	
 
 </body>
