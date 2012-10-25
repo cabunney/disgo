@@ -23,22 +23,6 @@
 	
 <body> 
 
-<!-- Start of first page: #one -->
-<div data-role="page" id="one">
-
-	<div data-role="header">
-		<h1>disgo</h1>
-	</div><!-- /header -->
-
-	<div data-role="content">	
-		
-	</div><!-- /content -->
-	
-	<?php
-		include 'footer.php'; 
-	?>
-	
-</div><!-- /page one -->
 
 
 
