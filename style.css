@@ -1,6 +1,33 @@
 		.nav-glyphish-example .ui-btn .ui-btn-inner { padding-top: 40px !important; }
 		.nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
 		#global .ui-icon { background:  url(glyphish-icons/glyphicons_340_globe.png) 50% 50% no-repeat;  background-size: 26px 26px; }
-		#local .ui-icon { background:  url(glyphish-icons/glyphicons_242_google_maps) 50% 50% no-repeat;  background-size: 18px 26px; }
-		#profile .ui-icon { background:  url(glyphish-icons/glyphicons_003_user.png) 50% 50% no-repeat;  background-size: 26px 26px; }
-		.top_bar_button {width:20px; height:20px;}
+		#local .ui-icon { background:  url(glyphish-icons/glyphicons_242_google_maps.png) 50% 50% no-repeat;  background-size: 18px 26px; }
+		#profile .ui-icon { background:  url(glyphish-icons/glyphicons_012_heart.png) 50% 50% no-repeat;  background-size: 26px 26px; }
+		#refresh .ui-icon { background:  url(glyphish-icons/glyphicons_081_refresh.png) 50% 50% no-repeat;  background-size: 20px 20px; border-radius:0px; display:block; padding-left:auto; padding-right:auto; border:0px; box-shadow:none;}
+		#refresh {box-shadow:none;}
+		#locate .ui-icon { background:  url(glyphish-icons/glyphicons_060_compass.png) 50% 50% no-repeat;  background-size: 100% 100%; border-radius:0px; display:block; padding-left:auto; padding-right:auto; border:0px; box-shadow:none;}
+		#locate {box-shadow:none; width:30px; height:30px; margin-top:2px; display:block; margin-left:auto;margin-right:auto;}
+		#add .ui-icon { background:  url(glyphish-icons/glyphicons_190_circle_plus.png) 50% 50% no-repeat;  background-size: 100% 100%; border-radius:0px; display:block; padding-left:auto; padding-right:auto; border:0px; box-shadow:none;}
+		#add {box-shadow:none; width:30px; height:30px; margin-top:2px; display:block; margin-left:auto;margin-right:auto;}
+		#ex .ui-icon { background:  url(glyphish-icons/glyphicons_192_circle_remove.png) 50% 50% no-repeat;  background-size: 100% 100%; border-radius:0px; display:block; padding-left:auto; padding-right:auto; border:0px; box-shadow:none;}
+		#ex {box-shadow:none; width:30px; height:30px; margin-top:2px; display:block; margin-left:auto;margin-right:auto;}
+		#fav .ui-icon { background:  url(glyphish-icons/glyphicons_049_star.png) 50% 50% no-repeat;  background-size: 100% 100%; border-radius:0px; display:block; padding-left:auto; padding-right:auto; border:0px; box-shadow:none;}
+		#fav {box-shadow:none; width:30px; height:30px; margin-top:2px; display:block; margin-left:auto;margin-right:auto;}
+		#back .ui-icon { background:  url(glyphish-icons/glyphicons_210_left_arrow.png) 50% 50% no-repeat;  background-size: 100% 100%; border-radius:0px; display:block; padding-left:auto; padding-right:auto; border:0px; box-shadow:none;}
+		#back {box-shadow:none; width:30px; height:30px; margin-top:2px; display:block; margin-left:auto;margin-right:auto;}
+		.top_bar_button {width:30px; max-width:30px;height:30px; border-radius:0px; display:block; padding-left:auto; padding-right:auto; background:transparent; border:0px; box-shadow:none; border-radius:0px; margin:0px; margin-top:0px;}
+		.top_bar_button span.ui-btn-inner {width:35px;max-width:35px; height:35px; border-radius:10px; background:transparent; padding:0px; margin:0px; border:0px; box-shadow:none;}
+		.slide {overflow:hidden;float:left;display:block;height:345px;background-size:cover;}
+		.slide a {height:100%;width:100%;}
+		.carousel {width:1200px; float:left;}
+		.slide_container {display:block;margin-left:auto;margin-right:auto;height:100%;position:relative;}
+		.slide_container img {display:block;margin-left:auto;margin-right:auto;position:absolute;width:100%;height:100%;}
+		.slide_container .description{position:absolute;text-align:left;left:10px;bottom:60px;color:white;font-family:'HelveticaNeue-Light';font-weight:lighter;font-size:30px;}
+		.slide_container .info{position:absolute;text-align:left;left:10px;bottom:40px;color:white;font-family:'HelveticaNeue-Light';font-weight:lighter;font-size:15px;}
+		.ui-content {padding:0px;}
+		.carousel-position {position:absolute;text-align:center;bottom:75px;width:100%;color:white;}
+		#header_title  {font-size:20px; padding:0px; margin:0px;}
+
+		#header_title img {height:35px; padding:0px; margin:0px; margin-top:5px;}
+		.on {color:grey;}
+		

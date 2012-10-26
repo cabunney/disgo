@@ -1833,7 +1833,7 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 .ui-header .ui-btn-icon-left .ui-btn-inner,
 .ui-footer .ui-btn-icon-left .ui-btn-inner,
 .ui-mini.ui-btn-icon-left .ui-btn-inner,
-.ui-mini .ui-btn-icon-left .ui-btn-inner { padding-left: 30px; }
+.ui-mini .ui-btn-icon-left .ui-btn-inner { padding-left: 0px; }
 .ui-header .ui-btn-icon-right .ui-btn-inner,
 .ui-footer .ui-btn-icon-right .ui-btn-inner,
 .ui-mini.ui-btn-icon-right .ui-btn-inner,
