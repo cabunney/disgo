@@ -23,11 +23,49 @@
 		.slide_container {display:block;margin-left:auto;margin-right:auto;height:100%;position:relative;}
 		.slide_container img {display:block;margin-left:auto;margin-right:auto;position:absolute;width:100%;height:100%;}
 		.slide_container .description{position:absolute;text-align:left;left:10px;bottom:60px;color:white;font-family:'HelveticaNeue-Light';font-weight:lighter;font-size:30px;}
-		.slide_container .info{position:absolute;text-align:left;left:10px;bottom:40px;color:white;font-family:'HelveticaNeue-Light';font-weight:lighter;font-size:15px;}
+		.slide_container .info{position:absolute;text-align:left;left:10px;bottom:40px;color:white;font-family:'HelveticaNeue-Light';font-weight:lighter;font-size:15px; text-shadow: 0.1em 0.1em #333;}
+
 		.ui-content {padding:0px;}
 		.carousel-position {position:absolute;text-align:center;bottom:75px;width:100%;color:white;}
 		#header_title  {font-size:20px; padding:0px; margin:0px;}
 
 		#header_title img {height:35px; padding:0px; margin:0px; margin-top:5px;}
 		.on {color:grey;}
-		
+		.disgoProfilePhoto img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 5px;
+			width  : 95%;
+    		height : auto;
+    		max-height: 400px;
+    		max-width: 400px;
+    		-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			}
+		.disgoProfilePhotoText {
+			position: absolute;
+			text-align: left;
+			margin-top: -37px;
+			margin-left: 5%;
+			color:white;
+			font-family:'HelveticaNeue-Light';
+			font-weight:normal;
+			font-size:14px;
+			text-shadow: 0.1em 0.1em #333;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			}
+		#form {
+			width: 90%;
+			max-width: 400px;
+			display: block;
+			margin-left: 5%;
+		}
+
+				
