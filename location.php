@@ -50,20 +50,51 @@
 
 		<a href="#popupLogin" data-rel="popup" id="form" data-role="button" data-transition="pop" data-inline="true">Contribute</a>
 		<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">
-		<form action="#" method="get">
-		<div data-role="fieldcontain" class="ui-hide-label"><textarea cols="40" rows="8" maxlength="140" name="textarea" placeholder="140 characters or less"></textarea></div>
+		
+		<!-- this is where the form goes -->
+				
+		
+<form action="submit_comment.php" id="commentform" method="post" />
+
+			<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less"></textarea>
 				<fieldset class="ui-grid-a">
-				<div class="ui-block-a"><button type="submit" data-theme="c">Cancel</button></div>
-				<div class="ui-block-b"><button type="submit" data-theme="b">Submit</button></div>	   
+				
+				<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
+				<div class="ui-block-b"><input type = "submit" data-theme="b" href = "#" value = "Comment" class = "comment" /></div>	 	
+
 			    </fieldset>
-		</form>
-		</div>
+			    </form>
+
+		
+	</div>
+				
+
+		
+		
+		
 		<!-- move to photoswipe gallery !-->
+<script type = "text/javascript">
+		$(".cancel").click(function(){
+			event.preventDefault();
+			$( "#popupLogin" ).popup( "close" )
+		});
+		$(".comment").click(function(event){
+			
+			event.preventDefault();
+				
 
+			$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
+							
+				$("#result").append(data);
+						$( "#popupLogin" ).popup( "close" )
+			});
+		});
 
-		<! -- add a div container for new comments -->
-		<! -- add a div container for new comments -->
+</script>
 
+		<!-- add a div container for new comments -->
+		<!-- add a div container for new comments -->
+<div id="result"></div>
 	</div><!-- /content -->
 	
 	<?php
@@ -74,8 +105,6 @@
 	?>
 </div><!-- /page one -->
 
-<script type = "text/javascript">
-</script>
 
 
 

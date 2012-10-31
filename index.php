@@ -46,8 +46,21 @@
 		<nav class="carousel-position">
 			<span class="position"><em class="on">•</em><em>•</em></span>
 		</nav>
+		
+		
+		
+<div data-role="popup" id="popup-message" data-theme="a" data-overlay-theme="a" class="ui-content">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+    
+    <a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>
+    
+    </div>
+		
+		
+		
+		
 	<div data-role="popup" id="popupBasic">
-		<p>Your location is ...<p>
+		<p>location..</p>
 	</div>
 	</div><!-- /content -->
 	<?php
@@ -60,29 +73,52 @@
 
 <script type = "text/javascript">
 			(function($){
-				$(".carousel-wrappper").carousel();
+				$(".carousel-wrapper").carousel();
 			})(jQuery);	
 
 
 
-			// 	$(function () {
-			//     $("#locate").click(function () {
-			//          alert("Geolocation is not supported by this browser.");
-			//     });
-			// });
+			 	$(function () {
+			     $("#locate").click(function () {
+			     	getLocation();
+			     });
+			 });
 
-			// function getLocation() {
-			//     if (navigator.geolocation) {
-			//        navigator.geolocation.getCurrentPosition(showPosition);
-			//     } else {
-			//         alert("Geolocation is not supported by this browser.");
-			//     }
-			// }
+			 function getLocation() {
+			     if (navigator.geolocation) {
+			        navigator.geolocation.getCurrentPosition(showPosition);
+			     } else {
+			         alert("Geolocation is not supported by this browser.");
+			     }
+			 }
 
-			// function showPosition(position) {
-			//     alert(position.coords.latitude + "latitude" + position.coords.longitude + "longitude");
+			 function showPosition(position) {
+			 	
+			 	
+			 	
+			 	
+			 	//<div id="result"></div>
+			 	
+			 	$("#myPopupDiv").html(position.coords.latitude + " latitude,")
+			 	
+			 	//$("#myPopupDiv").popup();
+			 	
+			 	
+			 	//$(".popup").html(position.coords.latitude + " latitude,");
+			 	
+			 	$(".popup").html(position.coords.longitude + " longitude");
+			 	
+			    // alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
 			   
-			// }
+			 }
+			 
+			 
+//			 
+//			 function showPosition(position) {
+//    $(".box1").html(position.coords.latitude);
+//    $(".box2").html(position.coords.longitude);
+//}
+		
 </script>
 
 
