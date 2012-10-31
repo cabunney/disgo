@@ -161,14 +161,15 @@ function uploadProgress(e) { // upload process in progress
 
 function uploadFinish(e) { // upload successfully finished
     var oUploadResponse = document.getElementById('upload_response');
-    oUploadResponse.innerHTML = e.target.responseText;
+    oUploadResponse.innerHTML = "Success!";
     oUploadResponse.style.display = 'block';
 
     document.getElementById('progress_percent').innerHTML = '100%';
     document.getElementById('progress').style.width = '100%';
+    var url = "location.php?id=" + e.target.responseText;
     // document.getElementById('filesize').innerHTML = sResultFileSize;
     // document.getElementById('remaining').innerHTML = '| 00:00:00';
-    // window.location.href = "temp_locate.php";
+    window.location.href = url;
     clearInterval(oTimer);
 }
 

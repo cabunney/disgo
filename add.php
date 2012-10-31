@@ -106,7 +106,22 @@ $time = time();
 			</div>
                     
            </form>
-		
+		<script type = 'text/javascript'>
+	$('a').click(function(){
+		var link = $(this).attr('href');
+	  $.mobile.changePage(
+	    link,
+	    {
+	      allowSamePageTransition : true,
+	      transition              : 'none',
+	      showLoadMsg             : false,
+	      reloadPage              : true
+	    }
+	  );
+	});
+
+
+</script>
 		
 	</div>	
 </div><!-- /content -->

@@ -32,6 +32,14 @@
 		#header_title img {height:35px; padding:0px; margin:0px; margin-top:5px;}
 		.on {color:grey;}
 
+		.position em {
+			font-size:30px;
+			font-style:normal;
+
+		
+
+		}
+
 		.disgoProfilePhoto img {
 			display: block;
 			margin-left: auto;
@@ -39,8 +47,8 @@
 			margin-top: 5px;
 			width  : 95%;
     		height : auto;
-    		max-height: 400px;
-    		max-width: 400px;
+    		max-height: 150px;
+    		
     		-webkit-border-radius: 5px;
 			-moz-border-radius: 5px;
 			border-radius: 5px;
