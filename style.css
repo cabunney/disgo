@@ -271,6 +271,42 @@ input[type=button] {
     background: linear-gradient(#bbb, #eee);
 }
 
+.comment_table {
+	width:90%;
+	display:block;
+	margin-left:auto;
+	margin-rigth:auto;	
+}
+
+.comment_table tr {
+	font-family:'Helvetica Neue', 'Helvetica'; 
+	font-size:14px; 
+}
+
+.comment_table td {
+	padding:5px;	
+}
+
+#contribute_btn {
+	
+}
+
+#comments_label {
+	font-size:20px; 
+	float:left;
+	margin-top:23px; 
+}
+
+//#location_label {
+//	font-size:12px;
+//	font-weight:bold;
+//}
+//
+//#popupBasic {
+//	font-size:14px;	
+//	font-family:'Courier New', 'Monaco';
+//	padding:5px; 
+//}
 
 
 		

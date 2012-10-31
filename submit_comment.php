@@ -5,14 +5,12 @@
 		include("config.php");
 		
 		$comment = $_POST["comment"];
-		$time = time();
-		
-		
+		$place = $_POST["place"];
 
+		$query = "Insert into comments (comment, location) values ('".$comment."', '".$place."')";
+		$result1 = mysql_query($query);
 		
-		$query = "insert into comments (comment, time) values ('$comment', '$time')";
-		
-		echo "<p>comment: ".$comment."</p>";
+		echo "<p>".$comment."</p>";
 	
 	?>
 </div>

@@ -12,7 +12,7 @@
 	</div>
 </div>
 <script type = 'text/javascript'>
-	$('a').click(function(){
+	$('.nav_button').click(function(){
 		var link = $(this).attr('href');
 	  $.mobile.changePage(
 	    link,

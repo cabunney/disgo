@@ -15,10 +15,11 @@ $time = time();
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="blue">
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport" content="width=device-width" initial-scale="1"> 
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="bootstrap.css" />
 
 	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
@@ -78,7 +79,7 @@ $time = time();
 							$filename = $row["filename"];
 							$id = $row["id"];
 							$title = $row["title"];
-							echo "<div id='slide-{$count}' class='slide' style = 'background-image:url(uploads/{$filename});'><a href = location.php?id={$id}' class = 'link_pic'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
+							echo "<div id='slide-{$count}' class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}' class = 'link_pic'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
 						    $count = $count + 1; 
 						}
 
@@ -110,10 +111,12 @@ $time = time();
     </div>
 		
 		
-		
+		//THE POPUP WORKS PERFECTLY ON A COMPUTER, BUT IS ONLY DISPLAYING THE TEXT "LOCATION" ON THE PHONE...
 		
 	<div data-role="popup" id="popupBasic">
-		<p>location..</p>
+		<div id = location_label>
+			<p>Location</p>
+		</div>
 	</div>
 	</div><!-- /content -->
 	<?php
@@ -141,37 +144,20 @@ $time = time();
 			     if (navigator.geolocation) {
 			        navigator.geolocation.getCurrentPosition(showPosition);
 			     } else {
-			         alert("Geolocation is not supported by this browser.");
+			         alert("Geolocation is not supported by this browser.").alert();
 			     }
 			 }
 
 			 function showPosition(position) {
 			 	
+			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
 			 	
 			 	
+			 	$("#popupBasic").append(position.coords.latitude + "<font-weight = bold>  latitude, " + position.coords.longitude + " longitude");
 			 	
-			 	//<div id="result"></div>
-			 	
-			 	$("#myPopupDiv").html(position.coords.latitude + " latitude,")
-			 	
-			 	//$("#myPopupDiv").popup();
-			 	
-			 	
-			 	//$(".popup").html(position.coords.latitude + " latitude,");
-			 	
-			 	$(".popup").html(position.coords.longitude + " longitude");
-			 	
-			    // alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
-			   
-			 }
-			 
-			 
-//			 
-//			 function showPosition(position) {
-//    $(".box1").html(position.coords.latitude);
-//    $(".box2").html(position.coords.longitude);
-//}
-		
+			     //alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
+			   //<div id=currLocation></div>
+			 }		
 </script>
 
 
