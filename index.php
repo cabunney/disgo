@@ -1,3 +1,13 @@
+<?php
+//Set no caching
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+header("Cache-Control: no-store, no-cache, must-revalidate"); 
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+$time = time(); 
+
+?>
 <!DOCTYPE html> 
 <html>
 
@@ -8,20 +18,21 @@
  	<meta name="apple-mobile-web-app-status-bar-style" content="blue">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
-	<link rel="stylesheet" href="white_theme.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
 
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
 
 	
 	<script src="jquery-1.8.2.min.js"></script>
-	<script src="jquery.easing.js"></script>
-	<script src="jqm-basic-carousel.js"></script>
+	<!-- <script src="jquery.easing.js"></script>
+	<script src="jqm-basic-carousel.js"></script> -->
 	<script src="jquery.mobile-1.2.0.js"></script>
-	
-	
+
+	<script src ="upload.js?<?php echo $time;?>"></script>
+
 
 </head> 
 
@@ -59,9 +70,9 @@
 </div><!-- /page one -->
 
 <script type = "text/javascript">
-			(function($){
-				$(".carousel-wrappper").carousel();
-			})(jQuery);	
+			// (function($){
+			// 	$(".carousel-wrappper").carousel();
+			// })(jQuery);	
 
 
 
