@@ -10,8 +10,7 @@
 			</ul>
 		</div>
 	</div>
-</div>
-<script type = 'text/javascript'>
+	<script type = 'text/javascript'>
 	$('a').click(function(){
 		var link = $(this).attr('href');
 	  $.mobile.changePage(
@@ -27,6 +26,8 @@
 
 
 </script>
+</div>
+
 	
 
 
