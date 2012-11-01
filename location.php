@@ -87,7 +87,7 @@ $time = time();
 	
 	
 			
-		<!-- move to photoswipe gallery !-->
+		<!-- add comments !-->
 <script type = "text/javascript">
 		$(".cancel").click(function(){
 			event.preventDefault();
