@@ -10,6 +10,7 @@
 			</ul>
 		</div>
 	</div>
+<<<<<<< HEAD
 </div>
 <script type = 'text/javascript'>
 	$('.nav_button').click(function(){
@@ -27,6 +28,8 @@
 
 
 </script>
+</div>
+
 	
 
 
