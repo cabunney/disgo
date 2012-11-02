@@ -63,13 +63,14 @@ $time = time();
 
 						if (!$result) {
 						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-						  
+
 						}
 
 						if (mysql_num_rows($result) == 0) {
 						    echo "There are no disgos.";
-					
+
 						}
+						$count = 0; 
 						// While a row of data exists, put that row in $row as an associative array
 						// Note: If you're expecting just one row, no need to use a loop
 						// Note: If you put extract($row); inside the following loop, you'll
@@ -78,10 +79,10 @@ $time = time();
 							$filename = $row["filename"];
 							$id = $row["id"];
 							$title = $row["title"];
-							array_push($ids, $id); 
-		  					array_push($filenames, $filename); 
-		  					array_push($titles, $title); 
+							echo "<div id='slide-{$count}' class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}' class = 'link_pic'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
+						    $count = $count + 1; 
 						}
+
 						mysql_free_result($result);
 					?>
 				
@@ -110,7 +111,7 @@ $time = time();
     </div>
 		
 		
-<!-- 		//THE POPUP WORKS PERFECTLY ON A COMPUTER, BUT IS ONLY DISPLAYING THE TEXT "LOCATION" ON THE PHONE... -->
+		//THE POPUP WORKS PERFECTLY ON A COMPUTER, BUT IS ONLY DISPLAYING THE TEXT "LOCATION" ON THE PHONE...
 		
 	<div data-role="popup" id="popupBasic">
 		<div id = location_label>
