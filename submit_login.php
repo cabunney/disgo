@@ -7,7 +7,7 @@ $password = md5(mysql_real_escape_string($_POST['password']));
 if (!isset($username) || !isset($password)) {
 	
 	header("Location: login.php");
-
+}
 elseif (empty($username) || empty($password)) {
 	header("Location: login.php");
 			} else {
