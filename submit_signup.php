@@ -11,7 +11,7 @@
 		printf("<script>window.location.href='login.php#signup'</script>");
 }
 
-elseif (empty($username) || empty($password) || empty(#email)) {
+elseif (empty($username) || empty($password) || empty($email)) {
 		printf("<script>window.location.href='login.php#signup'</script>");
 			} else {
 	
