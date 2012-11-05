@@ -6,7 +6,6 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 $time = time(); 
-
 ?>
 <!DOCTYPE html> 
 <html>
@@ -27,13 +26,15 @@ $time = time();
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="blue">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-<link rel="stylesheet" href="bootstrap.css" />
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="white_theme.css" />
+
 	
 	
 
 	<link rel="stylesheet" href="style.css?<?php echo $time; ?>" />
+	<link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" />
+
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
 	
@@ -48,7 +49,7 @@ $time = time();
 <!-- Start of first page: #one -->
 <div data-role="page" id="location1">
 	<div data-role="header">
-		<a href="index.php" id="back" data-icon="custom" class = "top_bar_button" data-ajax = "false" ></a>
+		<a href="index.php?<?php echo $time; ?>" id="back" data-icon="custom" class = "top_bar_button" data-ajax = "false" ></a>
 		<h1><?php echo $title?></h1>
 		<a href="#" id="fav" data-icon="custom" class = "top_bar_button"></a>
 	</div>
@@ -106,6 +107,29 @@ $time = time();
 			});
 		});
 
+		$('#back').click(function(){
+		var link = $(this).attr('href');
+	  $.mobile.changePage(
+	    link,
+	    {
+	      allowSamePageTransition : true,
+	      transition              : 'none',
+	      showLoadMsg             : false,
+	      reloadPage              : true
+	    }
+	  );
+	});
+
+</script>
+
+<script type = "text/javascript">
+$("a[data-ajax='false']").bind("click",
+    function() {
+        if (this.href) {
+            location.href = this.href;
+            return false;
+        }
+});
 </script>
 
 		<!-- add a div container for new comments -->

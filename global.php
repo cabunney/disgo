@@ -1,3 +1,13 @@
+<?php
+//Set no caching
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+header("Cache-Control: no-store, no-cache, must-revalidate"); 
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+$time = time(); 
+?>
+
 <!DOCTYPE html> 
 <html>
 
@@ -5,25 +15,23 @@
 	<title>Disgo | discover</title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
- 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+ 	<meta name="apple-mobile-web-app-status-bar-style" content="blue">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
-	<link rel="stylesheet" href="white_theme.css" />
 
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
+
+	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
-	<link rel="apple-touch-startup-image" href="startup.png" />
+	<link rel="apple-touch-startup-image" href="startup.png">
+
 	
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 
-<style>
 
-table {
-	width: 100%;
-	}
-</style>
+
 
 </head> 
 
@@ -79,27 +87,37 @@ table {
 
 	<div class="ui-block-a">
 		<p class="discoverProfilePhotoText"><?php echo $titles[0] ?><p>
-		<a href="location?id=<?php echo $ids[0] ?>"><img class="discoverPhoto" src="uploads/<?php echo $filenames[0]; ?>" /></a></div>
+		<a href="location?id=<?php echo $ids[0] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[0]; ?>" /></a></div>
 	<div class="ui-block-b">
 		<p class="discoverProfilePhotoText"><?php echo $titles[1] ?><p>
-		<a href="location?id=<?php echo $ids[1] ?>"><img class="discoverPhoto" src="uploads/<?php echo $filenames[1]; ?>" /></a></div>
+		<a href="location?id=<?php echo $ids[1] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[1]; ?>" /></a></div>
 	
 	<div class="ui-block-a bottomPhotos">
 		<p class="discoverProfilePhotoText"><?php echo $titles[2] ?><p>
-		<a href="location?id=<?php echo $ids[2] ?>"><img class="discoverPhoto" src="uploads/<?php echo $filenames[2]; ?>" /></a></div>
+		<a href="location?id=<?php echo $ids[2] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[2]; ?>" /></a></div>
 	<div class="ui-block-b bottomPhotos">
 		<p class="discoverProfilePhotoText"><?php echo $titles[3] ?><p>
-		<a href="location?id=<?php echo $ids[3] ?>"><img class="discoverPhoto" src="uploads/<?php echo $filenames[3]; ?>" /></a></div>
+		<a href="location?id=<?php echo $ids[3] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[3]; ?>" /></a></div>
 	
 	<div class="ui-block-a bottomPhotos">
 		<p class="discoverProfilePhotoText"><?php echo $titles[4] ?><p>
-		<a href="location?id=<?php echo $ids[4] ?>"><img class="discoverPhoto" src="uploads/<?php echo $filenames[4]; ?>" /></a></div>
+		<a href="location?id=<?php echo $ids[4] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[4]; ?>" /></a></div>
 	<div class="ui-block-b bottomPhotos">
 		<p class="discoverProfilePhotoText"><?php echo $titles[5] ?><p>
-		<a href="location?id=<?php echo $ids[5] ?>"><img class="discoverPhoto" src="uploads/<?php echo $filenames[5]; ?>" /></a></div>
+		<a href="location?id=<?php echo $ids[5] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[5]; ?>" /></a></div>
 
 
 </div>
+
+<script type = "text/javascript">
+$("a[data-ajax='false']").bind("click",
+    function() {
+        if (this.href) {
+            location.href = this.href;
+            return false;
+        }
+});
+</script>
 
 </div> <!-- content -->	
 		

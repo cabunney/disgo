@@ -15,11 +15,10 @@ $time = time();
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="blue">
-	<meta name="viewport" content="width=device-width" initial-scale="1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
-	<link rel="stylesheet" href="bootstrap.css" />
 
 	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
@@ -28,7 +27,7 @@ $time = time();
 	
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.easing.js"></script>
-	<script src="jquery.easing.compatability.js"></script>
+	<!--<script src="jquery.easing.compatability.js"></script>-->
 
 	<script src="jqm-basic-carousel.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
@@ -63,12 +62,12 @@ $time = time();
 
 						if (!$result) {
 						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-
+						  
 						}
 
 						if (mysql_num_rows($result) == 0) {
 						    echo "There are no disgos.";
-
+					
 						}
 						$count = 0; 
 						// While a row of data exists, put that row in $row as an associative array
@@ -79,7 +78,7 @@ $time = time();
 							$filename = $row["filename"];
 							$id = $row["id"];
 							$title = $row["title"];
-							echo "<div id='slide-{$count}' class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}' class = 'link_pic'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
+							echo "<div id='slide-{$count}' class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}&{$time}'  class = 'link_pic' data-ajax = 'false'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
 						    $count = $count + 1; 
 						}
 
@@ -106,17 +105,15 @@ $time = time();
 <div data-role="popup" id="popup-message" data-theme="a" data-overlay-theme="a" class="ui-content">
     <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
     
-    <a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>
+    <a  id="locate" data-icon="custom" data-ajax = "false" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>
     
     </div>
 		
 		
-		//THE POPUP WORKS PERFECTLY ON A COMPUTER, BUT IS ONLY DISPLAYING THE TEXT "LOCATION" ON THE PHONE...
+		
 		
 	<div data-role="popup" id="popupBasic">
-		<div id = location_label>
-			<p>Location</p>
-		</div>
+		<p>location..</p>
 	</div>
 	</div><!-- /content -->
 	<?php
@@ -127,10 +124,47 @@ $time = time();
 	?>
 </div><!-- /page one -->
 
+
+
 <script type = "text/javascript">
 			(function($){
 				$(".carousel-wrapper").carousel();
 			})(jQuery);	
+
+			$('#add').click(function(){
+		var link = $(this).attr('href');
+	  $.mobile.changePage(
+	    link,
+	    {
+	      allowSamePageTransition : true,
+	      transition              : 'none',
+	      showLoadMsg             : false,
+	      reloadPage              : true
+	    }
+	  );
+	});
+
+			$("a[data-ajax='false']").bind("click",
+    function() {
+        if (this.href) {
+            location.href = this.href;
+            return false;
+        }
+});
+
+	// $('a').click(function(){
+	// 	var link = $(this).attr('href');
+	//   $.mobile.changePage(
+	//     link,
+	//     {
+	//       allowSamePageTransition : true,
+	//       transition              : 'none',
+	//       showLoadMsg             : false,
+	//       reloadPage              : true
+	//     }
+	//   );
+	// });
+
 
 
 

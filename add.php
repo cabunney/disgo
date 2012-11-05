@@ -44,13 +44,12 @@ $time = time();
 <!-- Start of first page: #one -->
 <div data-role="page" id="add1">
 	<div data-role="header">
-		<a href="index.php" id="ex" data-icon="custom" class = "top_bar_button"></a>
+		<a href="index.php" id="ex" data-icon="custom" class = "top_bar_button ex_button" data-ajax = "false"></a>
 		<h1>Add New</h1>
 
 	</div><!-- /header -->
 	
 <div data-role="content">	
-				<script src ="upload.js"></script>
 
 
   <div class="upload_form_cont">
@@ -107,18 +106,18 @@ $time = time();
                     
            </form>
 		<script type = 'text/javascript'>
-	$('a').click(function(){
-		var link = $(this).attr('href');
-	  $.mobile.changePage(
-	    link,
-	    {
-	      allowSamePageTransition : true,
-	      transition              : 'none',
-	      showLoadMsg             : false,
-	      reloadPage              : true
-	    }
-	  );
-	});
+	// $('.ex_button').click(function(){
+	// 	var link = $(this).attr('href');
+	//   $.mobile.changePage(
+	//     link,
+	//     {
+	//       allowSamePageTransition : true,
+	//       transition              : 'none',
+	//       showLoadMsg             : false,
+	//       reloadPage              : true
+	//     }
+	//   );
+	// });
 
 
 </script>
