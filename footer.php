@@ -3,17 +3,22 @@
 			<ul>
 				
 
-				<li><a href="global.php" id="global" data-icon="custom" class = "nav_button <?php echo $global_state; ?>">discover</a></li>
-				<li><a href="index.php" id="local" data-icon="custom" class = "nav_button <?php echo $local_state; ?> ">disgo</a></li>
-				<li><a href="profile.php" id="profile" data-icon="custom" class = "nav_button <?php echo $profile_state; ?>">profile</a></li>
+				<li><a href="global.php" id="global" data-icon="custom" class = "nav_button <?php echo $global_state; ?>" data-ajax = "false">discover</a></li>
+				<li><a href="index.php" id="local" data-icon="custom" class = "nav_button <?php echo $local_state; ?> " data-ajax = "false">disgo</a></li>
+				<li><a href="profile.php" id="profile" data-icon="custom"  class = "nav_button <?php echo $profile_state; ?>" data-ajax = "false">profile</a></li>
 			
 			</ul>
 		</div>
 	</div>
 </div>
-<script type = 'text/javascript'>
-
-
+<script type = "text/javascript">
+$("a[data-ajax='false']").bind("click",
+    function() {
+        if (this.href) {
+            location.href = this.href;
+            return false;
+        }
+});
 </script>
 	
 
