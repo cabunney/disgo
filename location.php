@@ -41,6 +41,31 @@ $time = time();
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 	
+	<!--
+	<script type="text/javascript">
+		$(function() {
+			x = localStorage.getItem('username');
+			$(".username").html(x);
+			
+			$("#yes").click(function() {
+			localStorage.setItem('username',"Rio");
+			alert('Success');
+			});
+			
+			$("#no").click(function() {
+			x = localStorage.getItem('username');
+			alert('x');
+			});
+			
+			$("#maybe").click(function() {
+			localStorage.removeItem('username');
+			alert('Removed')
+			});	
+		});
+	</script>
+-->
+	
+	
 </head> 
 
 
