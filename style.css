@@ -335,6 +335,9 @@ input[type=button] {
 	font-size:14px;	
 	font-family:'Courier New', 'Monaco';
 	padding:5px; 
+	
+#skip {
+	margin-top: 40px;
 }
 
 		

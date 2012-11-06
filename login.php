@@ -12,7 +12,9 @@ $time = time();
 <!DOCTYPE html> 
 <html> 
 	<head> 
+
 	<title>Disgo | Login</title> 
+
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -20,6 +22,8 @@ $time = time();
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="white_theme.css" />
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+	<link rel="stylesheet" href="style.css?<?php echo $time; ?>" />
+
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 </head> 
@@ -30,6 +34,7 @@ $time = time();
 
 	<div data-role="header">
 		<h1>Login</h1>
+
 		<a href="#signup" data-role="button" data-inline="true" class = "btn btn-mini pull-right">Sign up!</a>
 	</div><!-- /header -->
 
@@ -49,6 +54,24 @@ $time = time();
 	</form>	
 
 	<p></p>
+	<div id="skip">
+	<p align="center"><a href="index.php?<?php echo $time; ?>" id="skip" data-ajax = "false">I hate kittens and I would like to skip registration.</a></p>
+	</div>
+	
+<script type = "text/javascript">
+	$('#skip').click(function(){
+		var link = $(this).attr('href');
+	  $.mobile.changePage(
+	    link,
+	    {
+	      allowSamePageTransition : true,
+	      transition              : 'none',
+	      showLoadMsg             : false,
+	      reloadPage              : true
+	    }
+	  );
+	});
+</script>
 							
 </div> <!-- /content -->
 </div>  <!-- /page -->
