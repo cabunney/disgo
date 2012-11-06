@@ -34,7 +34,7 @@ $time = time();
 
 	<div data-role="content">	
 		
-	<form action="submit_login.php" method="post" id="login">
+	<form action="submit_login.php" method="post" id="login" data-ajax = "false">
 						
 	<h2 align="center" ><span>Enter the Disgo!</span></h2>
 							
@@ -62,7 +62,7 @@ $time = time();
 	</div><!-- /header -->
 
 	<div data-role="content">	
-			<form action="submit_signup.php" method="post" id="signup">
+			<form action="submit_signup.php" method="post" id="signup" data-ajax = "false">
 						
 	<h2 align="center" ><span>Get Started with Disgo</span></h2>
 	

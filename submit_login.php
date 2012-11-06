@@ -20,7 +20,7 @@ elseif (empty($username) || empty($password)) {
 		$_SESSION['id'] = $row['username'];
 		
 		}
-	header("Location: index.php");
+		header("Location: index.php");
 
 	} else {
 	header("Location: login.php");
