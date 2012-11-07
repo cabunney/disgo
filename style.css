@@ -88,7 +88,7 @@
 			user-select: none;
 			}
 		.discoverPhoto {
-			display: relative;
+			display: block;
 		    width   : 100%;
 		    height  : auto;
 		    max-height: 150px;
@@ -314,6 +314,12 @@ input[type=button] {
 
 .comment_table td {
 	padding:5px;	
+}
+
+.deleteComment {
+	float: right;
+	margin-right: 20px;
+	visibility: hidden;
 }
 
 #contribute_btn {

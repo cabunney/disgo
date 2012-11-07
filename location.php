@@ -41,30 +41,6 @@ $time = time();
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 	
-	<!--
-	<script type="text/javascript">
-		$(function() {
-			x = localStorage.getItem('username');
-			$(".username").html(x);
-			
-			$("#yes").click(function() {
-			localStorage.setItem('username',"Rio");
-			alert('Success');
-			});
-			
-			$("#no").click(function() {
-			x = localStorage.getItem('username');
-			alert('x');
-			});
-			
-			$("#maybe").click(function() {
-			localStorage.removeItem('username');
-			alert('Removed')
-			});	
-		});
-	</script>
--->
-	
 	
 </head> 
 
@@ -87,13 +63,10 @@ $time = time();
 			<p class="disgoProfilePhotoText">10 comments | 200 photos <br>0.6 miles away</p>
 		</div>
 		
-		<!-- add a comment popup --> 
+		<!-- add a comment popup / comment form --> 
 
-		<!--<a href="#popupLogin" data-rel="popup" id="form" data-role="button" data-transition="pop" data-inline="true">Contribute</a>-->
 		<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">
 		
-		<!-- this is where the form goes -->
-				
 		
 <form action="submit_comment.php" id="commentform" method="post" />
 
@@ -106,14 +79,16 @@ $time = time();
 				<input type="hidden" name="place" id="place"/>
 			    </fieldset>
 			    </form>
-
 		
 	</div>
 	
-	
-	
-			
-		<!-- add comments !-->
+<script type = "text/javascript">
+/* some line of code that gives us userNameID	 */
+var userNameID = "guest"
+$('td[data-creator='+userNameID+']').css('visibility','visible') */;
+
+</script>			
+		<!-- add comments script !-->
 <script type = "text/javascript">
 		$(".cancel").click(function(){
 			event.preventDefault();
@@ -125,12 +100,14 @@ $time = time();
 			$("#place").val(<?php echo $place; ?>);
 
 			$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
-				$("#nodisgo").remove();			
-				$("#result tbody").prepend("<tr><td>"+data+"</td></tr>");
+				$("#nodisgo").remove();	
+				$("#result tbody").prepend("<tr><td data-creator="+usernameID+">"+data+"<a data-role='button' data-icon='delete';></a></td></tr>");
 				$( "#popupLogin" ).popup( "close" );
 			
 			});
 		});
+			
+	/* 	<!-- back button function !--> */
 
 		$('#back').click(function(){
 		var link = $(this).attr('href');
@@ -157,7 +134,6 @@ $("a[data-ajax='false']").bind("click",
 });
 </script>
 
-		<!-- add a div container for new comments -->
 		<!-- add a div container for new comments -->
 <div id="result">
 <table class = "table">
@@ -194,8 +170,8 @@ $("a[data-ajax='false']").bind("click",
 //							$id = $row["id"];
 							$creator = $row["creator"];
 
-							echo "<tr><td>{$comment}</td></tr>";
-						    $count = $count + 1; 
+							echo "<tr><td data-creator='$creator'>{$comment}<span<a class= 'deleteComment' data-role='button' data-icon='delete' data-iconpos='notext';></a></td></tr>";
+						    $count = $count + 1;
 						}
 
 						mysql_free_result($result1);
