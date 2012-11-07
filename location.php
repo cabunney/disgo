@@ -84,8 +84,8 @@ $time = time();
 	
 <script type = "text/javascript">
 /* some line of code that gives us userNameID	 */
-var userNameID = "guest"
-$('td[data-creator='+userNameID+']').css('visibility','visible') */;
+var usernameID = "guest"
+$('a[data-creator='+usernameID+']').css('visibility','visible') */;
 
 </script>			
 		<!-- add comments script !-->
@@ -170,7 +170,7 @@ $("a[data-ajax='false']").bind("click",
 //							$id = $row["id"];
 							$creator = $row["creator"];
 
-							echo "<tr><td data-creator='$creator'>{$comment}<span<a class= 'deleteComment' data-role='button' data-icon='delete' data-iconpos='notext';></a></td></tr>";
+							echo "<tr><td data-creator='$creator'>{$comment}<a class= 'deleteComment' data-role='button' data-icon='delete' data-iconpos='notext';></a></td></tr>";
 						    $count = $count + 1;
 						}
 
