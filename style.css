@@ -88,16 +88,16 @@
 			user-select: none;
 			}
 		.discoverPhoto {
-			display: block;
+			display: relative;
 		    width   : 100%;
 		    height  : auto;
-		    max-height: 150px;
+		    max-height: 120px;
 		    margin-top:-20px;
 		}
 		.bottomPhotos {
 			margin-top:-16px;
-			margin-bottom:none;
-/* 			offset div padding */
+			margin-bottom:0px;;
+ 					}
 		}
 		#form {
 			width: 90%;
@@ -319,7 +319,7 @@ input[type=button] {
 .deleteComment {
 	float: right;
 	margin-right: 20px;
-	visibility: hidden;
+	visibility: visible;
 }
 
 #contribute_btn {

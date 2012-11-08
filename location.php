@@ -41,31 +41,6 @@ $time = time();
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 	
-	<!--
-	<script type="text/javascript">
-		$(function() {
-			x = localStorage.getItem('username');
-			$(".username").html(x);
-			
-			$("#yes").click(function() {
-			localStorage.setItem('username',"Rio");
-			alert('Success');
-			});
-			
-			$("#no").click(function() {
-			x = localStorage.getItem('username');
-			alert('x');
-			});
-			
-			$("#maybe").click(function() {
-			localStorage.removeItem('username');
-			alert('Removed')
-			});	
-		});
-	</script>
--->
-	
-	
 </head> 
 
 
@@ -86,16 +61,13 @@ $time = time();
 		<img src="uploads/<?php echo $filename; ?>"/>
 			<p class="disgoProfilePhotoText">10 comments | 200 photos <br>0.6 miles away</p>
 		</div>
-		
-		<!-- add a comment popup --> 
 
-		<!--<a href="#popupLogin" data-rel="popup" id="form" data-role="button" data-transition="pop" data-inline="true">Contribute</a>-->
-		<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">
+		<!-- add a comment popup / comment form --> 
+
+		<div id = "popupContribute" data-role="popup" data-theme="a" data-overlay-theme="c">
 		
-		<!-- this is where the form goes -->
-				
 		
-<form action="submit_comment.php" id="commentform" method="post" />
+		<form action="submit_comment.php" id="commentform" method="post" />
 
 			<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less" id = "textarea"></textarea>
 				<fieldset class="ui-grid-a">
@@ -106,18 +78,20 @@ $time = time();
 				<input type="hidden" name="place" id="place"/>
 			    </fieldset>
 			    </form>
-
 		
 	</div>
 	
-	
-	
-			
-		<!-- add comments !-->
+<script type = "text/javascript">
+	/* some line of code that gives us userNameID	 */
+	var usernameID = "guest";
+	$('td[data-creator='+usernameID+']').css('visibility','visible');
+</script>	
+		
+		<!-- add comments script !-->
 <script type = "text/javascript">
 		$(".cancel").click(function(){
 			event.preventDefault();
-			$( "#popupLogin" ).popup( "close" )
+			$( "#popupContribute" ).popup( "close" )
 		});
 		$(".comment").click(function(event){
 			
@@ -125,12 +99,14 @@ $time = time();
 			$("#place").val(<?php echo $place; ?>);
 
 			$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
-				$("#nodisgo").remove();			
-				$("#result tbody").prepend("<tr><td>"+data+"</td></tr>");
-				$( "#popupLogin" ).popup( "close" );
+				$("#nodisgo").remove();	
+				$("#result tbody").prepend("<tr><td data-creator="+usernameID+">"+data+"<a class='deleteComment' data-role='button' data-icon='delete' data-iconpos='notext';></a></td></tr>");
+				$( "#popupContribute" ).popup( "close" );
 			
 			});
 		});
+			
+	/* 	<!-- back button function !--> */
 
 		$('#back').click(function(){
 		var link = $(this).attr('href');
@@ -158,11 +134,10 @@ $("a[data-ajax='false']").bind("click",
 </script>
 
 		<!-- add a div container for new comments -->
-		<!-- add a div container for new comments -->
 <div id="result">
 <table class = "table">
 <thead>
-	<tr><th><span id = "comments_label">Comments</span> <a href="#popupLogin" data-rel="popup"  data-role="button" data-transition="pop" data-inline="true" class = "btn btn-mini pull-right"id = "contribute_btn">Contribute</a></th></tr>
+	<tr><th><span id = "comments_label">Comments</span> <a href="#popupContribute" data-rel="popup"  data-role="button" data-transition="pop" data-inline="true" class = "btn btn-mini pull-right"id = "contribute_btn">Contribute</a></th></tr>
 	</thead>
 <tbody>
 <?php
@@ -171,9 +146,8 @@ $("a[data-ajax='false']").bind("click",
 						//$query1 = "SELECT * from comments WHERE location = ".$place."";
 						
 						$query1 = "SELECT * from comments WHERE location = {$place} ORDER by id DESC";
-
-						$result1 = mysql_query($query1);
 						
+						$result1 = mysql_query($query1);
 					
 						if (!$result1) {
 						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
@@ -194,8 +168,8 @@ $("a[data-ajax='false']").bind("click",
 //							$id = $row["id"];
 							$creator = $row["creator"];
 
-							echo "<tr><td>{$comment}</td></tr>";
-						    $count = $count + 1; 
+							echo "<tr class='delete'><td data-creator='$creator'>{$comment}<a class='deleteComment' data-role='button' data-icon='delete' data-iconpos='notext';></a></td></tr>";
+						    $count = $count + 1;
 						}
 
 						mysql_free_result($result1);
@@ -203,7 +177,15 @@ $("a[data-ajax='false']").bind("click",
 					</tbody>
 					</table>
 </div>
-	</div><!-- /content -->
+
+<script type='javascript'>
+
+$(".delete").click(function () {
+	$("tr").this.remove()
+	});
+
+</script>
+
 	
 				
 <!-- old comments go here -->
