@@ -1,3 +1,19 @@
+<?php
+//Set no caching
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+header("Cache-Control: no-store, no-cache, must-revalidate"); 
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+$time = time(); 
+session_start();
+?>
+
+		<?php 
+	$userID =  $_GET["userID"]; 
+?>
+
+
 <!DOCTYPE html> 
 <html>
 
@@ -8,84 +24,178 @@
  	<meta name="apple-mobile-web-app-status-bar-style" content="blue">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
-	<link rel="stylesheet" href="white_theme.css" />
+	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
 
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
 
 	
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.easing.js"></script>
+	<!--<script src="jquery.easing.compatability.js"></script>-->
+
 	<script src="jqm-basic-carousel.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
-	
+
+	<script src ="upload.js?<?php echo $time;?>"></script>
+
+
+		
+	<script type = "text/javascript" >
+		$(window).load(function() {
+			localStorage.setItem('userID', "<?php echo $userID; ?>");
+			var x = localStorage.getItem('userID');
+			alert(x);
+		});
+	</script>
 	
 
 </head> 
 
-	
 <body> 
 
 <!-- Start of first page: #one -->
 <div data-role="page" id="index2">
 	<div data-role="header">
-		<a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>
+		<a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>	
 		<h1 id = "header_title"><img src = "disgo_logo"></img></h1>
-		<a href="add.php" id="add" data-icon="custom" class = "top_bar_button"></a>
+		<a href="add.php?<?php echo $time; ?>" id="add" data-icon="custom" class = "top_bar_button"></a>
 	</div><!-- /header -->
 	
 	<div data-role="content">	
+
+		<script type="text/javascript">
+				$("#index2").unbind('pageinit');
+				$("#index2").bind( 'pageinit',function(event){ 
+					
+					$("#index2").find("#profile").attr("href", "profile.php?userID="+localStorage.getItem('userID'));
+
+				});
+		</script>
+	
 		<div class="carousel-wrapper">
 			<div class="carousel">
-				<div id="slide-0" class="slide" style = "background-image:url('memchu.jpeg');"><a href = "location.php?place=Memorial+Church" class = "link_pic"><div class = "slide_container"><div class = "description">Memorial Church</div><div class = "info">12 comments | 8 photos | 0.7 miles away</div></div></a></div>
-				<div id="slide-1" class="slide" style = "background-image:url('hoover.jpeg');"><a href = "location.php?place=Hoover+Tower" class = "link_pic"><div class = "slide_container"><div class = "description">Hoover Tower</div><div class = "info">10 comments | 200 photos | 0.6 miles away</div></div></a></div>
+					<?php
+						include("config2.php");
+
+						$sql = "SELECT * from locations";
+
+						$result = mysql_query($sql);
+
+						if (!$result) {
+						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+						  
+						}
+
+						if (mysql_num_rows($result) == 0) {
+						    echo "There are no disgos.";
+					
+						}
+						$count = 0; 
+						// While a row of data exists, put that row in $row as an associative array
+						// Note: If you're expecting just one row, no need to use a loop
+						// Note: If you put extract($row); inside the following loop, you'll
+						//       then create $userid, $fullname, and $userstatus
+						while ($row = mysql_fetch_assoc($result)) {
+							$filename = $row["filename"];
+							$id = $row["id"];
+							$title = $row["title"];
+							echo "<div id='slide-{$count}' class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}&{$time}'  class = 'link_pic' data-ajax = 'false'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
+						    $count = $count + 1; 
+						}
+
+						mysql_free_result($result);
+					?>
 			</div>
 		</div>
 		<nav class="carousel-position">
-			<span class="position"><em class="on">•</em><em>•</em></span>
+			<span class="position">
+				<em class="on">•</em>
+				<?php 
+					while ($count > 1) {
+						echo "<em>•</em>";
+					    $count = $count - 1; 
+					}
+
+				?>
+			</span>
 		</nav>
+		
+		
+		
+<div data-role="popup" id="popup-message" data-theme="a" data-overlay-theme="a" class="ui-content">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+    
+    <a  id="locate" data-icon="custom" data-ajax = "false" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>
+    
+    </div>
+		
+		
+		
+		
 	<div data-role="popup" id="popupBasic">
-		<p>Your location is ...<p>
+		<p>location..</p>
 	</div>
 	</div><!-- /content -->
 	<?php
 		$local_state = "ui-btn-active ui-state-persist";
-					$global_state = "";
-					$profile_state = "";
+		$global_state = "";
+		$profile_state = "";
 		include 'footer.php'; 
 	?>
 </div><!-- /page one -->
 
+
+
 <script type = "text/javascript">
 			(function($){
-				$(".carousel-wrappper").carousel();
+				$(".carousel-wrapper").carousel();
 			})(jQuery);	
 
+				$('#add').click(function(){
+		var link = $(this).attr('href');
+	  		$.mobile.changePage(
+	    		link,
+	    	 {
+	      allowSamePageTransition : true,
+	      transition              : 'none',
+	      showLoadMsg             : false,
+	      reloadPage              : true
+	    }
+	  );
+	});
 
+			$("a[data-ajax='false']").bind("click",
+    		function() {
+		        if (this.href) {
+		            location.href = this.href;
+		            return false;
+        	}
+			});
 
-			// 	$(function () {
-			//     $("#locate").click(function () {
-			//          alert("Geolocation is not supported by this browser.");
-			//     });
-			// });
+	$(function () {
+		$("#locate").click(function () {
+			     	getLocation();
+			     });
+	 });
 
-			// function getLocation() {
-			//     if (navigator.geolocation) {
-			//        navigator.geolocation.getCurrentPosition(showPosition);
-			//     } else {
-			//         alert("Geolocation is not supported by this browser.");
-			//     }
-			// }
+	function getLocation() {
+		if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition);
+		 } else {
+			alert("Geolocation is not supported by this browser.").alert();
+	     }
+	 }
 
-			// function showPosition(position) {
-			//     alert(position.coords.latitude + "latitude" + position.coords.longitude + "longitude");
-			   
-			// }
+	function showPosition(position) {
+		$("#popupBasic").append(position.coords.latitude + "<font-weight = bold>  latitude, " + position.coords.longitude + " longitude");
+			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
+			     //alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
+			   //<div id=currLocation></div>
+	}		
 </script>
-
-
 
 </body>
 </html>
