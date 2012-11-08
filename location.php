@@ -117,7 +117,7 @@ $time = time();
 	  );
 	});
 
-// <!-- favorite star -->
+
 	$('#fav').click(function(){
 		var link = $(this).attr('href');
 		var x = localStorage.getItem('userID');
@@ -172,16 +172,12 @@ $("a[data-ajax='false']").bind("click",
 						//       then create $userid, $fullname, and $userstatus
 						while ($row = mysql_fetch_assoc($result1)) {
 							$comment = $row["comment"];
-//							$id = $row["id"];
+							$id = $row["id"];
 							$creator = $row["creator"];
-
-							echo "<tr name='comment' id='comment'><td data-creator='$creator'>{$comment}<a href='#popupDelete' id='deleteMe' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-icon data-inline='true' class = 'btn btn-mini pull-right'id = 'delete_btn'></a>
+							echo "<tr id='".$id."'><td data-creator='$creator'>{$comment}<a href='#popupDelete' id='deleteMe' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-icon data-inline='true' class = 'btn btn-mini pull-right'id = 'delete_btn'></a>
 						    </td></tr>";
 						    $count = $count + 1;
-							echo "<tr><td>{$comment}</td></tr>";
-						    $count = $count + 1; 
 						}
-
 						mysql_free_result($result1);
 					?>
 					</tbody>
@@ -197,8 +193,8 @@ $("a[data-ajax='false']").bind("click",
 		<form action="delete_comment.php" method="post" id="confirmform">
 		<button type = "submit" data-theme="b"  id = "confirm" href = "#" class = "confirm">
 		Delete Comment
-		<button></form></div>	 	
-		<input type="hidden" name="place" id="place"/>
+		<input type="hidden" name="place" id="place" class="place1"/>
+		</button></form></div>	 	
 	</fieldset>
 </div>
 
@@ -211,9 +207,9 @@ $("a[data-ajax='false']").bind("click",
 		$(".confirm").click(function(event){
 			
 			event.preventDefault();
-			$("#place").val(<?php echo $place; ?>);
+			$(".place1").val($(this));
 
-			$.post("delete_comment.php", $("#confirmform").serialize(), function(data) {
+			$.post("delete_comment.php", {place:$("#deleteMe").parent().parent().attr("id")}, function(data) {
 				$("#deleteMe").parent().parent().remove();
 				$( "#popupDelete" ).popup( "close" );
 			
