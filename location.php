@@ -104,7 +104,7 @@ $time = time();
 			});
 		});
 
-		$('#back').click(function(){
+	$('#back').click(function(){
 		var link = $(this).attr('href');
 	  $.mobile.changePage(
 	    link,
@@ -117,25 +117,15 @@ $time = time();
 	  );
 	});
 
-<!-- favorite star -->
+// <!-- favorite star -->
 	$('#fav').click(function(){
 		var link = $(this).attr('href');
 		var x = localStorage.getItem('userID');
-			if (x == ""){
-		<div class="hover">  
-<a href="#" id="fav" class="btn btn-success" rel="popover" data-content="You are not logged in.  Click on the profile tab to enable favoriting!"></a>  
-		</div>
-		<script>  
-			$(function ()  
-			<!-- this hover thing doesn't work -->
-				$('#fav').popover({placement:'bottom'});  
-			});  
-		</script> 	
-			} else {
-					<!-- change to yellow -->
-					
-					<!-- add to database as a member of set of location id's in favs column of each user-->
-			}
+// 			if (x == ""){
+// 		<div class="hover">  
+// <a href="#" id="fav" class="btn btn-success" rel="popover" data-content="You are not logged in.  Click on the profile tab to enable favoriting!"></a>  
+// 		</div>
+	
 	});
 
 </script>
