@@ -198,7 +198,7 @@ $("a[data-ajax='false']").bind("click",
 					</table>
 </div>
 
-
+<!-- confirmation of delete comment popup -->
 <div style="display: block;" id = "popupDelete" class="deleteComment" data-role="popup" data-icon="delete" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
 	<h4>Are you sure you want to delete this comment?</h4>
 	<fieldset class="ui-grid-a">
@@ -212,7 +212,7 @@ $("a[data-ajax='false']").bind("click",
 	</fieldset>
 </div>
 
-
+<!-- deletes comment from DOM / backend -->
 <script type = "text/javascript">
 		$(".cancel").click(function(){
 			event.preventDefault();
