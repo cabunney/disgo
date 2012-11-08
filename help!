@@ -1,0 +1,24 @@
+don't make it data-rel= "external" because that loads to a web browser instead of app
+
+each new level is a, b, etc.
+
+twitter bootstrap isn't the best because it doesn't work well with mobile
+
+optimizely.com
+
+jquery ui demo
+
+
+PROBLEMS:
+
+- profile isn't working correctly
+	> profile button doesn't display
+	> haven't assigned guest to be empty (do I need to do that?)
+- pictures aren't showing up on index
+- location is displaying incorrect information to user (# of comments, etc.)
+
+
+In fav:
+	> want to determine whether user is logged in or is a guest
+	> if guest, show popup that asks them to login on profile tab
+	> if logged in, highlight star in yellow and add location id to favs table
