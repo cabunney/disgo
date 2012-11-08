@@ -6,7 +6,13 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 $time = time(); 
+session_start();
 ?>
+
+		<?php 
+	$userID =  $_GET["userID"]; 
+?>
+
 <!DOCTYPE html> 
 <html>
 
@@ -34,16 +40,24 @@ $time = time();
 
 	<script src ="upload.js?<?php echo $time;?>"></script>
 
+		
+	<script type = "text/javascript" >
+		$(window).load(function() {
+			localStorage.setItem('userID', "<?php echo $userID; ?>");
+			var x = localStorage.getItem('userID');
+			alert(x);
+		});
+	</script>
+	
 
 </head> 
 
-	
 <body> 
 
 <!-- Start of first page: #one -->
 <div data-role="page" id="index2">
 	<div data-role="header">
-		<a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>
+		<a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>	
 		<h1 id = "header_title"><img src = "disgo_logo"></img></h1>
 		<a href="add.php?<?php echo $time; ?>" id="add" data-icon="custom" class = "top_bar_button"></a>
 	</div><!-- /header -->
@@ -51,6 +65,16 @@ $time = time();
 
 
 	<div data-role="content">	
+
+		<script type="text/javascript">
+				$("#index2").unbind('pageinit');
+				$("#index2").bind( 'pageinit',function(event){ 
+					
+					$("#index2").find("#profile").attr("href", "profile.php?userID="+localStorage.getItem('userID'));
+
+				});
+		</script>
+	
 		<div class="carousel-wrapper">
 			<div class="carousel">
 					<?php
@@ -84,7 +108,6 @@ $time = time();
 
 						mysql_free_result($result);
 					?>
-				
 			</div>
 		</div>
 		<nav class="carousel-position">
@@ -131,11 +154,11 @@ $time = time();
 				$(".carousel-wrapper").carousel();
 			})(jQuery);	
 
-			$('#add').click(function(){
+				$('#add').click(function(){
 		var link = $(this).attr('href');
-	  $.mobile.changePage(
-	    link,
-	    {
+	  		$.mobile.changePage(
+	    		link,
+	    	 {
 	      allowSamePageTransition : true,
 	      transition              : 'none',
 	      showLoadMsg             : false,
@@ -145,56 +168,35 @@ $time = time();
 	});
 
 			$("a[data-ajax='false']").bind("click",
-    function() {
-        if (this.href) {
-            location.href = this.href;
-            return false;
-        }
-});
 
-	// $('a').click(function(){
-	// 	var link = $(this).attr('href');
-	//   $.mobile.changePage(
-	//     link,
-	//     {
-	//       allowSamePageTransition : true,
-	//       transition              : 'none',
-	//       showLoadMsg             : false,
-	//       reloadPage              : true
-	//     }
-	//   );
-	// });
+    		function() {
+		        if (this.href) {
+		            location.href = this.href;
+		            return false;
+        	}
+			});
 
-
-
-
-			 	$(function () {
-			     $("#locate").click(function () {
+	$(function () {
+		$("#locate").click(function () {
 			     	getLocation();
 			     });
-			 });
+	 });
 
-			 function getLocation() {
-			     if (navigator.geolocation) {
-			        navigator.geolocation.getCurrentPosition(showPosition);
-			     } else {
-			         alert("Geolocation is not supported by this browser.").alert();
-			     }
-			 }
+	function getLocation() {
+		if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition);
+		 } else {
+			alert("Geolocation is not supported by this browser.").alert();
+	     }
+	 }
 
-			 function showPosition(position) {
-			 	
+	function showPosition(position) {
+		$("#popupBasic").append(position.coords.latitude + "<font-weight = bold>  latitude, " + position.coords.longitude + " longitude");
 			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
-			 	
-			 	
-			 	$("#popupBasic").append(position.coords.latitude + "<font-weight = bold>  latitude, " + position.coords.longitude + " longitude");
-			 	
 			     //alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
 			   //<div id=currLocation></div>
-			 }		
+	}		
 </script>
-
-
 
 </body>
 </html>

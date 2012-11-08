@@ -6,7 +6,7 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 $time = time(); 
-
+session_start();
 ?>
 
 <!DOCTYPE html> 
@@ -25,37 +25,59 @@ $time = time();
 	<link rel="stylesheet" href="style.css?<?php echo $time; ?>" />
 
 	<script src="jquery-1.8.2.min.js"></script>
-	<script src="jquery.mobile-1.2.0.js"></script>
+	<script src="jquery.mobile-1.2.0.js"></script>	
+
 </head> 
+
 <body> 
 
 <!-- Start of first page -->
-<div data-role="page" id="login">
+<div data-role="page" class="login">
 
 	<div data-role="header">
 		<h1>Login</h1>
 
-		<a href="#signup" data-role="button" data-inline="true" class = "btn btn-mini pull-right">Sign up!</a>
+		<a href="#signup" data-role="button" color="white" data-inline="true" class = "btn btn-mini pull-right">Sign up!</a>
+
 	</div><!-- /header -->
 
 	<div data-role="content">	
 		
+
+		<p id="userID"></p>
+		<!-- changed form action from submit_login.php to index.php -->
 	<form action="submit_login.php" method="post" id="login" data-ajax = "false">
 						
-	<h2 align="center" ><span>Enter the Disgo!</span></h2>
+		<h2 align="center" ><span>Enter the Disgo!</span></h2>
 							
-	<input type="text" id="username" name="username" placeholder="Username" />
+		<input type="text" id="username" name="username" placeholder="Username" autocapitalize="off"/>
 								
-	<input type="password" id="password" name="password" placeholder="Password" />
+		<input type="password" id="password" name="password" placeholder="Password" autocapitalize="off"/>
 						<p></p>		
 							
-	<input type="submit" value="Login" />
-	
+		<input type="submit" value="Login" />
 	</form>	
-
-	<p></p>
+<p></p>
+		
+		<!-- added stuff -->
+		
+		
+	<!-- SUPER IMPORTANT FOR LOCAL STORAGE! -->	
+		
+		<script type="text/javascript">
+		$("#login").unbind('pageinit');
+		$("#login").bind('pageinit');
+		</script>
+		
+	</div>
+		
+		<!-- /added stuff -->
+		
+	
 	<div id="skip">
-	<p align="center"><a href="index.php?<?php echo $time; ?>" id="skip" data-ajax = "false">I hate kittens and I would like to skip registration.</a></p>
+	
+	
+	<p align="center"><a href="index.php?<?php echo $time; ?> id="skip" data-ajax = "false">I would like to skip registration.</a></p>
 	</div>
 	
 <script type = "text/javascript">
@@ -72,7 +94,7 @@ $time = time();
 	  );
 	});
 </script>
-							
+
 </div> <!-- /content -->
 </div>  <!-- /page -->
 
@@ -104,6 +126,9 @@ $time = time();
 	</div><!-- /content -->
 
 </div><!-- /page -->
+
+
+>>>>>>> sabitake4
 </body>
 
 </html>

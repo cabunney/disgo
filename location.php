@@ -41,6 +41,7 @@ $time = time();
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 	
+	
 </head> 
 
 
@@ -66,10 +67,12 @@ $time = time();
 
 		<div id = "popupContribute" data-role="popup" data-theme="a" data-overlay-theme="c">
 		
+		<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">		
 		
-		<form action="submit_comment.php" id="commentform" method="post" />
+			<form action="submit_comment.php" id="commentform" method="post" />
 
-			<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less" id = "textarea"></textarea>
+				<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less" id = "textarea"></textarea>
+
 				<fieldset class="ui-grid-a">
 				
 				<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
@@ -77,21 +80,16 @@ $time = time();
 				<button type = "submit" data-theme="b"  id = "comment" href = "#" class = "comment">Comment</button></div>	 	
 				<input type="hidden" name="place" id="place"/>
 			    </fieldset>
-			    </form>
+			</form>
+
 		
 	</div>
-	
-<script type = "text/javascript">
-	/* some line of code that gives us userNameID	 */
-	var usernameID = "guest";
-	$('td[data-creator='+usernameID+']').css('visibility','visible');
-</script>	
-		
-		<!-- add comments script !-->
+			
+		<!-- add comments !-->
 <script type = "text/javascript">
 		$(".cancel").click(function(){
 			event.preventDefault();
-			$( "#popupContribute" ).popup( "close" )
+			$( "#popupLogin" ).popup( "close" )
 		});
 		$(".comment").click(function(event){
 			
@@ -99,14 +97,12 @@ $time = time();
 			$("#place").val(<?php echo $place; ?>);
 
 			$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
-				$("#nodisgo").remove();	
-				$("#result tbody").prepend("<tr><td data-creator="+usernameID+">"+data+"<a class='deleteComment' data-role='button' data-icon='delete' data-iconpos='notext';></a></td></tr>");
-				$( "#popupContribute" ).popup( "close" );
+				$("#nodisgo").remove();			
+				$("#result tbody").prepend("<tr><td>"+data+"</td></tr>");
+				$( "#popupLogin" ).popup( "close" );
 			
 			});
 		});
-			
-	/* 	<!-- back button function !--> */
 
 		$('#back').click(function(){
 		var link = $(this).attr('href');
@@ -119,6 +115,27 @@ $time = time();
 	      reloadPage              : true
 	    }
 	  );
+	});
+
+<!-- favorite star -->
+	$('#fav').click(function(){
+		var link = $(this).attr('href');
+		var x = localStorage.getItem('userID');
+			if (x == ""){
+		<div class="hover">  
+<a href="#" id="fav" class="btn btn-success" rel="popover" data-content="You are not logged in.  Click on the profile tab to enable favoriting!"></a>  
+		</div>
+		<script>  
+			$(function ()  
+			<!-- this hover thing doesn't work -->
+				$('#fav').popover({placement:'bottom'});  
+			});  
+		</script> 	
+			} else {
+					<!-- change to yellow -->
+					
+					<!-- add to database as a member of set of location id's in favs column of each user-->
+			}
 	});
 
 </script>
@@ -134,20 +151,20 @@ $("a[data-ajax='false']").bind("click",
 </script>
 
 		<!-- add a div container for new comments -->
+
 <div id="result">
 <table class = "table">
 <thead>
-	<tr><th><span id = "comments_label">Comments</span> <a href="#popupContribute" data-rel="popup"  data-role="button" data-transition="pop" data-inline="true" class = "btn btn-mini pull-right"id = "contribute_btn">Contribute</a></th></tr>
+	<tr><th><span id = "comments_label">Comments</span> <a href="#popupLogin" data-rel="popup"  data-role="button" data-transition="pop" data-inline="true" class = "btn btn-mini pull-right"id = "contribute_btn">Contribute</a></th></tr>
 	</thead>
 <tbody>
 <?php
 						include("config.php");
 						
-						//$query1 = "SELECT * from comments WHERE location = ".$place."";
-						
 						$query1 = "SELECT * from comments WHERE location = {$place} ORDER by id DESC";
-						
+
 						$result1 = mysql_query($query1);
+						
 					
 						if (!$result1) {
 						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
@@ -171,6 +188,8 @@ $("a[data-ajax='false']").bind("click",
 							echo "<tr name='comment' id='comment'><td data-creator='$creator'>{$comment}<a href='#popupDelete' id='deleteMe' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-icon data-inline='true' class = 'btn btn-mini pull-right'id = 'delete_btn'></a>
 						    </td></tr>";
 						    $count = $count + 1;
+							echo "<tr><td>{$comment}</td></tr>";
+						    $count = $count + 1; 
 						}
 
 						mysql_free_result($result1);
@@ -178,6 +197,7 @@ $("a[data-ajax='false']").bind("click",
 					</tbody>
 					</table>
 </div>
+
 
 <div style="display: block;" id = "popupDelete" class="deleteComment" data-role="popup" data-icon="delete" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
 	<h4>Are you sure you want to delete this comment?</h4>
@@ -211,20 +231,8 @@ $("a[data-ajax='false']").bind("click",
 		});
 </script>
 
+	</div><!-- /content -->
 	
-				
-<!-- old comments go here -->
-
-
-				
-<!-- end of old comments -->
-
-
-
-
-
-		
-
 	
 	<?php
 		$local_state = "ui-btn-active ui-state-persist";

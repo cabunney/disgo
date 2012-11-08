@@ -4,6 +4,7 @@ include("config.php");
 		$query = "SELECT * from users where username = '".$username."'";
 		$result = mysql_query($query);
 		$row = mysql_fetch_assoc($result);
+
 		while($row = mysql_fetch_assoc($result)); {
 			if ($result != 'guest') {
 				$_SESSION['id'] = $row['username'];
