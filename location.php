@@ -181,7 +181,7 @@ $("a[data-ajax='false']").bind("click",
 <script type='javascript'>
 
 $(".delete").click(function () {
-	$("tr").this.remove()
+	$(this).parent().parent().remove()
 	});
 
 </script>
