@@ -168,7 +168,8 @@ $("a[data-ajax='false']").bind("click",
 //							$id = $row["id"];
 							$creator = $row["creator"];
 
-							echo "<tr class='delete'><td data-creator='$creator'>{$comment}<a class='deleteComment' data-role='button' data-icon='delete' data-iconpos='notext';></a></td></tr>";
+							echo "<tr name='comment' id='comment'><td data-creator='$creator'>{$comment}<a href='#popupDelete' id='deleteMe' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-icon data-inline='true' class = 'btn btn-mini pull-right'id = 'delete_btn'></a>
+						    </td></tr>";
 						    $count = $count + 1;
 						}
 
@@ -178,12 +179,36 @@ $("a[data-ajax='false']").bind("click",
 					</table>
 </div>
 
-<script type='javascript'>
+<div style="display: block;" id = "popupDelete" class="deleteComment" data-role="popup" data-icon="delete" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
+	<h4>Are you sure you want to delete this comment?</h4>
+	<fieldset class="ui-grid-a">
+		<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
+		<div class="ui-block-b">
+		<form action="delete_comment.php" method="post" id="confirmform">
+		<button type = "submit" data-theme="b"  id = "confirm" href = "#" class = "confirm">
+		Delete Comment
+		<button></form></div>	 	
+		<input type="hidden" name="place" id="place"/>
+	</fieldset>
+</div>
 
-$(".delete").click(function () {
-	$(this).parent().parent().remove()
-	});
 
+<script type = "text/javascript">
+		$(".cancel").click(function(){
+			event.preventDefault();
+			$( "#popupDelete" ).popup( "close" )
+		});
+		$(".confirm").click(function(event){
+			
+			event.preventDefault();
+			$("#place").val(<?php echo $place; ?>);
+
+			$.post("delete_comment.php", $("#confirmform").serialize(), function(data) {
+				$("#deleteMe").parent().parent().remove();
+				$( "#popupDelete" ).popup( "close" );
+			
+			});
+		});
 </script>
 
 	

@@ -1,5 +1,3 @@
-
-
 <div class="commentarea">
 	<?php
 		include("config.php");
