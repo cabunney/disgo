@@ -342,10 +342,27 @@ input[type=button] {
 	font-size:14px;	
 	font-family:'Courier New', 'Monaco';
 	padding:5px; 
-	
+}
+/*	
 #skip {
 	margin-top: 40px;
 }
 
 		
+*/
 
+.smallspan {
+	width:10px;
+	max-width:10px; 
+	overflow:hidden;
+}
+
+#fav {
+	width:120px;
+}
+
+#fav1 {
+	position:absolute;
+	top:2px; 
+	right:10px;
+}

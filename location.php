@@ -13,6 +13,7 @@ $time = time();
 <head>
 	<?php
 		include("config2.php");
+
 		$place = $_GET['id'];
 		$query2 = "SELECT * from locations where id = '".$place."'";
 		$result2 = mysql_query($query2);
@@ -52,102 +53,54 @@ $time = time();
 	<div data-role="header">
 		<a href="index.php?<?php echo $time; ?>" id="back" data-icon="custom" class = "top_bar_button" data-ajax = "false" ></a>
 		<h1><?php echo $title?></h1>
-		<a href="#" id="fav" data-icon="custom" class = "top_bar_button"></a>
+		
 	</div>
+
 	
 	<div data-role="content">	
 	
 		<!-- photo container --> 
 		<div class="disgoProfilePhoto">
 		<img src="uploads/<?php echo $filename; ?>"/>
-			<p class="disgoProfilePhotoText">10 comments | 200 photos <br>0.6 miles away</p>
-		</div>
+<!-- 			<p class="disgoProfilePhotoText">10 comments | 200 photos <br>0.6 miles away</p>
+ -->		
+ 
+
+</div>
+<form action="favorite.php" id="fav1" method="post" />
+			<input type = "hidden" name = "userId" id = "userId" value = 0 />
+			<input type = "hidden" name = "locId" id = "locId" value = <?php echo $place; ?> />
+			<button type = "submit" data-theme="b" href="#" id="fav" class = "favBut">Favorite</button>
+		</form>
 
 		<!-- add a comment popup / comment form --> 
 
 		<div id = "popupContribute" data-role="popup" data-theme="a" data-overlay-theme="c">
-		
-		<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">		
-		
-			<form action="submit_comment.php" id="commentform" method="post" />
-
-				<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less" id = "textarea"></textarea>
-
-				<fieldset class="ui-grid-a">
-				
-				<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
-				<div class="ui-block-b">
-				<button type = "submit" data-theme="b"  id = "comment" href = "#" class = "comment">Comment</button></div>	 	
-				<input type="hidden" name="place" id="place"/>
-			    </fieldset>
-			</form>
-
-		
-	</div>
-			
-		<!-- add comments !-->
-<script type = "text/javascript">
-		$(".cancel").click(function(){
-			event.preventDefault();
-			$( "#popupLogin" ).popup( "close" )
-		});
-		$(".comment").click(function(event){
-			
-			event.preventDefault();
-			$("#place").val(<?php echo $place; ?>);
-
-			$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
-				$("#nodisgo").remove();			
-				$("#result tbody").prepend("<tr><td>"+data+"</td></tr>");
-				$( "#popupLogin" ).popup( "close" );
-			
-			});
-		});
-
-	$('#back').click(function(){
-		var link = $(this).attr('href');
-	  $.mobile.changePage(
-	    link,
-	    {
-	      allowSamePageTransition : true,
-	      transition              : 'none',
-	      showLoadMsg             : false,
-	      reloadPage              : true
-	    }
-	  );
-	});
+			<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">		
+				<form action="submit_comment.php" id="commentform" method="post" />
+					<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less" id = "textarea"></textarea>
+					<fieldset class="ui-grid-a">
+					<input type = "hidden" id = "creatorComment" name = "creatorComment" />
+					<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
+					<div class="ui-block-b">
+					<button type = "submit" data-theme="b"  id = "comment" href = "#" class = "comment">Comment</button></div>	 	
+					<input type="hidden" name="place" id="place"/>
+				    </fieldset>
+				</form>
+			</div>
+		</div>
 
 
-	$('#fav').click(function(){
-		var link = $(this).attr('href');
-		var x = localStorage.getItem('userID');
-// 			if (x == ""){
-// 		<div class="hover">  
-// <a href="#" id="fav" class="btn btn-success" rel="popover" data-content="You are not logged in.  Click on the profile tab to enable favoriting!"></a>  
-// 		</div>
-	
-	});
 
-</script>
-
-<script type = "text/javascript">
-$("a[data-ajax='false']").bind("click",
-    function() {
-        if (this.href) {
-            location.href = this.href;
-            return false;
-        }
-});
-</script>
 
 		<!-- add a div container for new comments -->
 
 <div id="result">
 <table class = "table">
 <thead>
-	<tr><th><span id = "comments_label">Comments</span> <a href="#popupLogin" data-rel="popup"  data-role="button" data-transition="pop" data-inline="true" class = "btn btn-mini pull-right"id = "contribute_btn">Contribute</a></th></tr>
+	<tr><th><span id = "comments_label">Comments</span> <a href="#popupLogin" data-rel="popup"  data-role="button" data-transition="pop" data-inline="true" class = "btn btn-mini pull-right" id = "contribute_btn">Contribute</a></th></tr>
 	</thead>
-<tbody>
+ <tbody>
 <?php
 						include("config.php");
 						
@@ -174,13 +127,13 @@ $("a[data-ajax='false']").bind("click",
 							$comment = $row["comment"];
 							$id = $row["id"];
 							$creator = $row["creator"];
-							echo "<tr id='".$id."'><td data-creator='$creator'>{$comment}<a href='#popupDelete' id='deleteMe' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-icon data-inline='true' class = 'btn btn-mini pull-right'id = 'delete_btn'></a>
+							echo "<tr id='".$id."'><td data-creator='$creator'>{$comment}<a style = 'display:none;' href='#popupDelete' class='deleteMe btn btn-mini pull-right {$creator}' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-inline='true' ></a>
 						    </td></tr>";
 						    $count = $count + 1;
 						}
 						mysql_free_result($result1);
 					?>
-					</tbody>
+					</tbody> 
 					</table>
 </div>
 
@@ -204,16 +157,93 @@ $("a[data-ajax='false']").bind("click",
 			event.preventDefault();
 			$( "#popupDelete" ).popup( "close" )
 		});
+
+		$(".deleteMe").click(function() {
+			var tempId = $(this).parent().parent().attr("id");
+			$(".confirm").attr("name", tempId);
+		});
+
 		$(".confirm").click(function(event){
 			
 			event.preventDefault();
 			$(".place1").val($(this));
-
-			$.post("delete_comment.php", {place:$("#deleteMe").parent().parent().attr("id")}, function(data) {
-				$("#deleteMe").parent().parent().remove();
+			var tempId2 = $(this).attr("name");
+			$.post("delete_comment.php", {place:tempId2}, function(data) {
+				
+				$("#"+tempId2).remove();
 				$( "#popupDelete" ).popup( "close" );
 			
 			});
+		});
+
+		$("a[data-ajax='false']").bind("click",
+		    function() {
+		        if (this.href) {
+		            location.href = this.href;
+		            return false;
+		        }
+		});
+
+		$(".cancel").click(function(){
+			event.preventDefault();
+			$( "#popupLogin" ).popup( "close" )
+		});
+
+		$(".comment").click(function(event){
+			
+			event.preventDefault();
+			$("#place").val(<?php echo $place; ?>);
+
+			$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
+				$("#nodisgo").remove();			
+				$("#result tbody").prepend(data);
+				$( "#popupLogin" ).popup( "close" );
+			
+			});
+		});
+
+		$('#back').click(function(){
+			var link = $(this).attr('href');
+		  $.mobile.changePage(
+		    link,
+		    {
+		      allowSamePageTransition : true,
+		      transition              : 'none',
+		      showLoadMsg             : false,
+		      reloadPage              : true
+		    }
+		  );
+		});
+
+
+	// 	$('#fav').click(function(){
+	// 		var link = $(this).attr('href');
+	// 		var x = localStorage.getItem('userID');
+	// // 			if (x == ""){
+	// // 		<div class="hover">  
+	// // <a href="#" id="fav" class="btn btn-success" rel="popover" data-content="You are not logged in.  Click on the profile tab to enable favoriting!"></a>  
+	// // 		</div>
+		
+	// 	});
+
+
+		$("#fav").click(function(event){
+			
+			event.preventDefault();
+			
+
+			$.post("favorite.php", $("#fav1").serialize(), function(data) {
+				$(".favBut").parent().hide();
+				$("#fav1").append(data);			
+			
+			
+			});
+		});
+
+		$(document).ready(function() {
+			$("#creatorComment").val(localStorage.getItem('userID'));
+			$("." + localStorage.getItem('userID')).show();
+			$("#userId").val(localStorage.getItem('userID'));
 		});
 </script>
 

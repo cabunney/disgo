@@ -1,15 +1,21 @@
-<div class="commentarea">
+
 	<?php
 		include("config.php");
 		
 		$comment = $_POST["comment"];
 		$place = $_POST["place"];
-
-		$query = "Insert into comments (comment, location) values ('".$comment."', '".$place."')";
+		$creator = $_POST["creatorComment"];
+		$query = "Insert into comments (comment, location, creator) values ('".$comment."', '".$place."', '".$creator."')";
 		$result1 = mysql_query($query);
-		
-		echo "<p>".$comment."</p>";
+		$query2 = "SELECT * from comments where comment = '".$comment."'";
+		$result2 = mysql_query($query2);
+		$row2 = mysql_fetch_assoc($result2);
+		$id = $row2["id"];
+
+		echo "<tr id = '{$id}'><td data-creator='{$creator}'>{$comment}</td></tr>";
+		// <a href='#popupDelete' class='deleteMe btn btn-mini pull-right' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-inline='true' ></a>
+
+
 	
 	?>
-</div>
 

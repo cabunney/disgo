@@ -40,14 +40,7 @@ session_start();
 
 	<script src ="upload.js?<?php echo $time;?>"></script>
 
-		
-	<script type = "text/javascript" >
-		$(window).load(function() {
-			localStorage.setItem('userID', "<?php echo $userID; ?>");
-			var x = localStorage.getItem('userID');
-			alert(x);
-		});
-	</script>
+	
 	
 
 </head> 
@@ -57,7 +50,8 @@ session_start();
 <!-- Start of first page: #one -->
 <div data-role="page" id="index2">
 	<div data-role="header">
-		<a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>	
+		<!-- <a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>	 -->
+		<a href ="#"><span ><span id = "latbox" class = "smallspan"></span>° N  <span id = "longbox" class = "smallspan"></span>° W</span></a>
 		<h1 id = "header_title"><img src = "disgo_logo"></img></h1>
 		<a href="add.php?<?php echo $time; ?>" id="add" data-icon="custom" class = "top_bar_button"></a>
 	</div><!-- /header -->
@@ -65,6 +59,7 @@ session_start();
 
 
 	<div data-role="content">	
+		
 
 		<script type="text/javascript">
 				$("#index2").unbind('pageinit');
@@ -72,9 +67,10 @@ session_start();
 					
 					$("#index2").find("#profile").attr("href", "profile.php?userID="+localStorage.getItem('userID'));
 
+
 				});
 		</script>
-	
+		<!-- <div onclick = "distance(300,300,1)">Click here</div> -->
 		<div class="carousel-wrapper">
 			<div class="carousel">
 					<?php
@@ -102,7 +98,10 @@ session_start();
 							$filename = $row["filename"];
 							$id = $row["id"];
 							$title = $row["title"];
-							echo "<div id='slide-{$count}' class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}&{$time}'  class = 'link_pic' data-ajax = 'false'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
+							$lat = $row["lat"];
+							$long = $row["lng"];
+
+							echo "<div id='slide-{$count}' name = {$lat} title = {$long} class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}&user=&{$time}'  class = 'link_pic' data-ajax = 'false'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
 						    $count = $count + 1; 
 						}
 
@@ -111,8 +110,9 @@ session_start();
 			</div>
 		</div>
 		<nav class="carousel-position">
-			<span class="position">
-				<em class="on">•</em>
+			<span class="position" id = "dots">
+				<!-- <em class="on">•</em> -->
+<!-- 
 				<?php 
 					while ($count > 1) {
 						echo "<em>•</em>";
@@ -120,6 +120,7 @@ session_start();
 					}
 
 				?>
+				 -->
 			</span>
 		</nav>
 		
@@ -195,7 +196,70 @@ session_start();
 			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
 			     //alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
 			   //<div id=currLocation></div>
-	}		
+	}	
+
+	$(document).ready(function() { 
+		if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(getPosition);
+		 } else {
+			alert("Geolocation is not supported by this browser.").alert();
+	     }
+
+	     				$(".carousel-wrapper").carousel();
+
+  		
+
+	 })
+
+	function getPosition(position) {
+		// $("#popupBasic").append(position.coords.latitude + "<font-weight = bold>  latitude, " + position.coords.longitude + " longitude");
+			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
+			     //alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
+			   //<div id=currLocation></div>
+		$("#latbox").html(Math.round( position.coords.latitude));
+				$("#longbox").html(Math.round( position.coords.longitude));
+
+
+		$(".slide").each(function() {
+  			var lat1 = parseFloat($(this).attr("name"));
+  			var lon1 = parseFloat($(this).attr("title"));
+
+			// var lat2 = $("#latbox").text();
+			// var lon2 = $("#longbox").text();
+			lat2 = position.coords.latitude;
+			lon2 = position.coords.longitude;
+		
+			var R = 6371; 
+			var dLat = toRad(lat2-lat1);
+			var dLon = toRad(lon2-lon1);
+			var lat1 = toRad(lat1);
+			var lat2 = toRad(lat2);
+
+			var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+			        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			var dist = R * c;
+
+				// $(this).html(dist);
+
+
+			if (dist > 5) {
+				$(this).remove();
+			} else {
+				$("#dots").append("<em>•</em>");
+			}
+		})
+
+		function toRad(Value) {
+		    /** Converts numeric degrees to radians */
+		    return Value * Math.PI / 180;
+		}
+
+	}	
+
+
+
+	
 </script>
 
 </body>
