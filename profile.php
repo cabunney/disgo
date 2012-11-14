@@ -1,9 +1,6 @@
-
 <!DOCTYPE html> 
-
 <html>
 <head>
-
 	<?php
 		include("config.php");
 		$userID = $_GET['userID'];
@@ -11,35 +8,25 @@
 			$query2 = "SELECT * from users where id = '".$userID."'";
 			$result2 = mysql_query($query2);
 			$row2 = mysql_fetch_assoc($result2);
-			$username = $row2["username"];
-			
+			$username = $row2["username"];	
 		} else {
 			$username = "profile";
 		}
-	
-		
-		
 	?>
-
-
 	<title>Disgo | profile</title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="white_theme.css" />
-
-	
 	<link rel="stylesheet" href="style.css" />
-
-
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png" />
 	
 	<script src="jquery-1.8.2.min.js"></script>
-	<script src="jquery.mobile-1.2.0.js"></script>	
-			
+	<script src="jquery.mobile-1.2.0.js"></script>
 </head>
 			
 <body>
@@ -71,11 +58,7 @@
 
 	<div id = "prof">
 	<div id="result">
-<table class = "table">
-<thead>
-	<tr><th>Favorites:</th></td>
-	</thead>
- <tbody>
+	<p class="pageBanner">Your Favorites</p>
 <?php
 						include("config2.php");
 						$userID = $_GET['userID'];
@@ -90,7 +73,7 @@
 						}
 
 						if (mysql_num_rows($result1) == 0) {
-						    echo "<tr id = 'nodisgo'><td>There are no favorites.</td></tr>";
+						    echo "<tr class='pageBanner' id = 'nodisgo'><td>There are no favorites.</td></tr>";
 					
 						}
 						$count = 0; 
@@ -105,16 +88,15 @@
 							$result2 = mysql_query($query2);
 							$row2 = mysql_fetch_assoc($result2);
 							$locationName = $row2["title"];
-						
-							echo "<tr ><td ><a href = 'location.php?id={$loc}' data-ajax='false'>{$locationName}</a></td></tr>";
+							$filename = $row2["filename"];
+/* <a style='text-align:right' href = 'location.php?id={$loc}' data-ajax='false'> */
+						echo "<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/></div><p class='profilePhotoText'>{$locationName}</p></a>";
 						   
 						}
 						mysql_free_result($result1);
 					?>
-					</tbody> 
-					</table>
-</div>
 
+	</div>
 	</div>
 	
 		

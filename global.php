@@ -46,13 +46,11 @@ session_start();
 
 	</div><!-- /header -->
 
-	<div data-role="content"> <!-- content -->		
+	<div data-role="content"> <!-- content -->	
 	<?php
 	include("config2.php");
 
 	$sql = "SELECT * from locations ORDER BY RAND()";
-
-
 
 	$result = mysql_query($sql);
 
@@ -88,24 +86,24 @@ session_start();
 
 <div class="ui-grid-a">
 
-	<div class="ui-block-a">
+	<div class="ui-block-a frameTop">
 		<p class="discoverProfilePhotoText"><?php echo $titles[0] ?><p>
 		<a href="location?id=<?php echo $ids[0] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[0]; ?>" /></a></div>
-	<div class="ui-block-b">
+	<div class="ui-block-b frameTop">
 		<p class="discoverProfilePhotoText"><?php echo $titles[1] ?><p>
 		<a href="location?id=<?php echo $ids[1] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[1]; ?>" /></a></div>
 	
-	<div class="ui-block-a bottomPhotos">
+	<div class="ui-block-a frameBottom">
 		<p class="discoverProfilePhotoText"><?php echo $titles[2] ?><p>
 		<a href="location?id=<?php echo $ids[2] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[2]; ?>" /></a></div>
-	<div class="ui-block-b bottomPhotos">
+	<div class="ui-block-b frameBottom">
 		<p class="discoverProfilePhotoText"><?php echo $titles[3] ?><p>
 		<a href="location?id=<?php echo $ids[3] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[3]; ?>" /></a></div>
 	
-	<div class="ui-block-a bottomPhotos">
+	<div class="ui-block-a frameBottom">
 		<p class="discoverProfilePhotoText"><?php echo $titles[4] ?><p>
 		<a href="location?id=<?php echo $ids[4] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[4]; ?>" /></a></div>
-	<div class="ui-block-b bottomPhotos">
+	<div class="ui-block-b frameBottom">
 		<p class="discoverProfilePhotoText"><?php echo $titles[5] ?><p>
 		<a href="location?id=<?php echo $ids[5] ?>" data-ajax = "false"><img class="discoverPhoto" src="uploads/<?php echo $filenames[5]; ?>" /></a></div>
 
@@ -144,8 +142,6 @@ $("#filter").unbind('pageinit');
 </script>
 
 
-		
-		
 	<?php
 		$local_state = "";
 		$global_state = "ui-btn-active";
@@ -154,10 +150,6 @@ $("#filter").unbind('pageinit');
 	?>
 
 </div><!-- /page -->
-
-<script type = "text/javascript">
-
-</script>
 
 
 </body>

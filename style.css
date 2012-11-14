@@ -27,7 +27,7 @@
 
 		.ui-content {padding:0px;}
 		.carousel-position {position:absolute;text-align:center;bottom:75px;width:100%;color:white;}
-		#header_title  {font-size:20px; padding:0px; margin:0px;}
+		#header_title  {font-size:18px; padding:0px; margin:0px;}
 
 		#header_title img {height:35px; padding:0px; margin:0px; margin-top:5px;}
 		.on {color:grey;}
@@ -35,24 +35,69 @@
 		.position em {
 			font-size:30px;
 			font-style:normal;
-
-		
-
 		}
-
-		.disgoProfilePhoto img {
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: 3px;
-			width  : 95%;
-    		height : auto;
-    		max-height: 150px;
-    		
-    		-webkit-border-radius: 5px;
-			-moz-border-radius: 5px;
-			border-radius: 5px;
+		
+		.crop{
+			width:100%;
+			height:150px;
+			border:
+			overflow: hidden;
 			}
+		.crop img{
+			width: 100%;
+			height: 300px;
+			margin: -100px 0 -100px 0px;
+			}
+		
+		.cropProfile {
+			width:100%;
+			height:100px;
+			border-top:1px solid white;
+			overflow: hidden;
+			margin-top:-8px;
+		}
+		.cropProfile img {
+			width: 100%;
+			height: 300px;
+			margin: -100px 0 -100px 0px;
+			}
+		a {
+			font-family:'HelveticaNeue-Light';
+		}
+		.profilePhotoText {
+			font-family:'HelveticaNeue-Light';
+			color: white;
+			text-align: right;
+			margin-top: -25px;
+			margin-right: 5px;
+			text-shadow: 1px 1px #333;
+			text-decoration: none;
+			font-size: 16px;
+			}
+		.pageBanner {
+			width: 100%;
+			background-color: #6CA6CD;
+			color: white;
+			text-align: center;
+			font-weight:bold;
+			text-shadow: 0.1em 0.1em #333;
+			font-size: 16px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			margin-top: -2px;
+			margin-bottom: 6px;
+		}
+		.favoriteSuccess {
+			width: 105%;
+			background-color: #6CA6CD;
+			color: white;
+			text-align: center;
+			font-weight:bold;
+			text-shadow: 0.1em 0.1em #333;
+			font-size: 12px;
+			margin-top: 8px;
+			}
+
 		.disgoProfilePhotoText {
 			position: absolute;
 			text-align: left;
@@ -73,13 +118,13 @@
 		.discoverProfilePhotoText {
 			position: absolute;
 			text-align: left;
-			margin-top: 5px;
-			margin-left: 5%;
+			margin-top: 15px;
+			margin-left: 3%;
+			max-width:45%;
 			color:white;
-			font-family:'HelveticaNeue-Light';
 			font-weight:normal;
 			font-size:16px;
-			text-shadow: 0.1em 0.1em #333;
+			text-shadow: 1px 1px #333;
 			-webkit-touch-callout: none;
 			-webkit-user-select: none;
 			-khtml-user-select: none;
@@ -87,18 +132,25 @@
 			-ms-user-select: none;
 			user-select: none;
 			}
-		.discoverPhoto {
-			display: relative;
-		    width   : 100%;
-		    height  : auto;
-		    max-height: 120px;
-
-		    margin-top:-20px;
+		.frameTop {
+		    border-left:2px solid white;
+		    border-bottom:1px solid white;
+		    margin-top:-13px;
+		    margin-bottom:-20px;
 		}
-		.bottomPhotos {
-			margin-top:-16px;
-			margin-bottom:0px;;
- 					}
+		.frameBottom {
+		    border-left:2px solid white;
+		    border-bottom:1px solid white;
+		    margin-top:-13px;
+		    margin-bottom:-20px;
+		}
+		.discoverPhoto {
+		    width: 100%;
+		    height: auto;
+		    max-height: 110px;
+		}
+		.bottom {
+			margin-bottom:0px;
 		}
 		#form {
 			width: 90%;
@@ -106,10 +158,7 @@
 			display: block;
 			margin-left: 5%;
 		}
-
 				
-
-
 		.add_form {
 			width:100%;
 			
@@ -323,8 +372,9 @@ input[type=button] {
 	visibility: visible;
 }
 
-#contribute_btn {
-	
+.contribute {
+	padding-bottom: 6px;
+	opacity: 0.9;
 }
 
 #comments_label {
@@ -355,10 +405,6 @@ input[type=button] {
 	width:10px;
 	max-width:10px; 
 	overflow:hidden;
-}
-
-#fav {
-	width:120px;
 }
 
 #fav1 {

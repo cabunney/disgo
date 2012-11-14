@@ -14,7 +14,7 @@
 
 		$query = "Insert into favs (locId, userId) values ('".$locId."', '".$userId."')";
 		$result1 = mysql_query($query);
-		  echo "Success!";
+		  echo "<p class='favoriteSuccess'>Favorite</p>";
 		
 }
 		// echo "<tr id = '{$id}'><td data-creator='{$creator}'>{$comment}</td></tr>";
