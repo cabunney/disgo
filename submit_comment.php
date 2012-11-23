@@ -10,8 +10,6 @@
 	$result2 = mysql_query($query2);
 	$row2 = mysql_fetch_assoc($result2);
 	$id = $row2["id"];
-
-	echo "<tr id='{$id}'><td data-creator='{$creator}'>{$comment}<a href='#popupDelete' class='deleteMe btn btn-mini pull-right {$creator}' data-rel='popup' data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-inline='true'></a></td></tr>";
-
+	$upvotes = $row2["upvotes"];
 ?>
 

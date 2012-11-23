@@ -27,6 +27,7 @@ $time = time();
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="white_theme.css" />
+	<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
 
 	<link rel="stylesheet" href="style.css?<?php echo $time; ?>" />
 	<link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" />
@@ -52,7 +53,7 @@ $time = time();
 		 	 <form action="favorite.php" id="fav1" method="post" />
 					<input type = "hidden" name = "userId" id = "userId" value = 0 />
 					<input type = "hidden" name = "locId" id = "locId" value = <?php echo $place; ?> />
-					<button type = "submit" data-role="button" data-icon="star" data-iconpos="notext" data-mini="false" data-inline="true" data-theme="b" href="#" id="fav" class = "favBut"></button>
+					<button type = "submit" data-role="button" data-icon="fastar" data-iconpos="notext" data-mini="false" data-inline="true" data-theme="b" href="#" id="fav" class = "favBut"></button>
 			</form>
 	
 	
@@ -65,49 +66,80 @@ $time = time();
 							<input type = "hidden" id = "creatorComment" name = "creatorComment" />
 							<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
 							<div class="ui-block-b">
-							<button type = "submit" data-theme="b"  id = "comment" href = "#" class = "comment">Comment</button></div>	 	
+								<button type = "submit" data-theme="b"  id = "comment" href = "#" class = "comment">Comment</button></div>	 	
 							<input type="hidden" name="place" id="place"/>
 						    </fieldset>
 						</form>
 					</div>
 				</div>
 			<!-- add a div container for new comments -->
-			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="plus" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div>
+			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="faplus" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div>
 			<div id="result">
-				<table class = "table">
-					 <tbody>
-						<?php
-						include("config.php");
-						$query1 = "SELECT * from comments WHERE location = {$place} ORDER by id DESC";
-						$result1 = mysql_query($query1);
-						if (!$result1) {
-						    echo "Could not successfully run query ($sql) from DB: " . mysql_error(); 
-						}
-						if (mysql_num_rows($result1) == 0) {
-						    echo "<tr id = 'nodisgo'><td>There are no comments for this Disgo.</td></tr>";
-						}
-						$count = 0; 
-						// While a row of data exists, put that row in $row as an associative array
-						// Note: If you're expecting just one row, no need to use a loop
-						// Note: If you put extract($row); inside the following loop, you'll
-						//       then create $userid, $fullname, and $userstatus
-						while ($row = mysql_fetch_assoc($result1)) {
-							$comment = $row["comment"];
-							$id = $row["id"];
-							$creator = $row["creator"];
-							echo 
-							"<tr id='".$id."'>
-								<td data-creator='$creator'>
+				<?php
+				include("config.php");
+				$query1 = "SELECT * from comments WHERE location = {$place} ORDER by upvotes DESC";
+				$result1 = mysql_query($query1);
+				if (!$result1) {
+				    echo "Could not successfully run query ($sql) from DB: " . mysql_error(); 
+				}
+				if (mysql_num_rows($result1) == 0) {
+				    echo "<div id = 'nodisgo' class='placeholder'>There are no comments for this Disgo yet.</div>";
+				}
+				$count = 0;
+				// While a row of data exists, put that row in $row as an associative array
+				// Note: If you're expecting just one row, no need to use a loop
+				// Note: If you put extract($row); inside the following loop, you'll
+				//       then create $userid, $fullname, and $userstatus
+				while ($row = mysql_fetch_assoc($result1)) {
+					$comment = $row["comment"];
+					$id = $row["id"];
+					$counter = $row["id"];
+					$creator = $row["creator"];
+					$upvotes = $row["upvotes"];
+					echo 
+					"<table class='commentBox' id='".$id."'>
+						<tr>
+							<td data-creator='$creator'>
+								<a  href='#popupVote' class='vote btn btn-mini pull-left {$creator}' data-rel='popup'  data-role='button' data-transition='pop' data-icon='resize-vertical' data-iconpos='notext' data-inline='true'></a>
+							<td class='alignment' rowspan='3'>
 								{$comment}
-								<a style = 'display:none;' href='#popupDelete' class='deleteMe btn btn-mini pull-right {$creator}' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-inline='true'></a>
-						    	</td>
-						    </tr>";
-						    $count = $count + 1;
-						}
-						mysql_free_result($result1);
-						?>
-					</tbody> 
-				</table>
+							</td>
+							<td rowspan='3'>
+								<a style = 'display:none;' href='#popupDelete' class='deleteMe btn btn-mini pull-right {$creator}' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='remove-circle' data-iconpos='notext' data-inline='true'></a>
+			    			</td>
+				    	</tr>
+				    	<tr>
+				    		<td>
+				    			<p class = 'counter' id = 'counter{$id}'>{$upvotes}</p>
+				    		</td>
+				    	</tr>								
+				    </table>";
+				    $count = $count + 1;
+				}
+				mysql_free_result($result1);
+				?>
+			</div>
+			<!-- confirmation of delete comment popup -->
+			<div style="display: block;" id = "popupVote" class="deleteComment" data-role="popup" data-icon="resize-vertical" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
+				<p style="text-align: center; font-size: 16px;">Downvote or upvote this comment?</p>
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a">
+						<form action="downvote.php" method="post" id="downvote">
+							<button data-theme="c" href = "#"  class = "downvote" style="font-size: 12px;">
+								Downvote
+								<input type="hidden" name="place" id="place" class="place1"/>
+							</button>
+						</form>
+					</div>
+					<div class="ui-block-b">
+						<form action="upvote.php" method="post" id="upvote">
+							<button type = "submit" data-theme="b" href = "#" class = "upvote" style="font-size: 12px;">
+								Upvote
+								<input type="hidden" name="place" id="place" class="place1"/>
+							</button>
+						</form>
+					</div>	 	
+				</fieldset>
 			</div>
 			<!-- confirmation of delete comment popup -->
 			<div style="display: block;" id = "popupDelete" class="deleteComment" data-role="popup" data-icon="delete" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
@@ -115,21 +147,50 @@ $time = time();
 				<fieldset class="ui-grid-a">
 					<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel" style="font-size: 12px;">Cancel</button></div>
 					<div class="ui-block-b">
-					<form action="delete_comment.php" method="post" id="confirmform">
-					<button type = "submit" data-theme="b"  id = "confirm" href = "#" class = "confirm" style="font-size: 12px;">
-					Delete
-					<input type="hidden" name="place" id="place" class="place1"/>
-					</button></form></div>	 	
+						<form action="delete_comment.php" method="post">
+							<button type = "submit" data-theme="b" href = "#" class = "confirm" style="font-size: 12px;">
+								Delete
+								<input type="hidden" name="place" id="place" class="place1"/>
+							</button>
+						</form>
+					</div>	 	
 				</fieldset>
 			</div>
-			<!-- adds comment -->
+			
 			<script type = "text/javascript">
+/* 			<!-- adds voting to comment --> */
+				$(".vote").click(function() {
+					var tempId = $(this).parents('table').attr("id");
+					$(".upvote").attr("name", tempId);
+					$(".downvote").attr("name", tempId);
+				});
+				$(".downvote").click(function(event){
+					event.preventDefault();
+					$(".place1").val($(this));
+					var tempId2 = $(this).attr("name");
+					var counterID = "#counter" + tempId2;
+					$.post("downvote.php", {place:tempId2}, function(data) {
+						$( "#popupVote" ).popup( "close" );
+    					$( counterID ).html(function(i, val) { return +val-1 });
+					});
+				});
+				$(".upvote").click(function(event){	
+					event.preventDefault();
+					$(".place1").val($(this));
+					var tempId2 = $(this).attr("name");
+					var counterID = "#counter" + tempId2;
+					$.post("upvote.php", {place:tempId2}, function(data) {
+						$( "#popupVote" ).popup( "close" );
+    					$( counterID ).html(function(i, val) { return +val+1 });
+					});
+				});
+/* 			<!-- adds deleting to comment --> */
 				$(".cancel").click(function(){
 					event.preventDefault();
 					$( "#popupDelete" ).popup( "close" )
 				});
 				$(".deleteMe").click(function() {
-					var tempId = $(this).parent().parent().attr("id");
+					var tempId = $(this).parents('table').attr("id");
 					$(".confirm").attr("name", tempId);
 				});
 				$(".confirm").click(function(event){	
@@ -148,9 +209,9 @@ $time = time();
 				            return false;
 				        }
 				});
-				/* handles cancel & comment options for contribute button */
-				$(document).on('vclick', '#contribute_btn', function(){
-					$('#commentform')[0].reset();
+/* handles cancel & comment options for contribute button */
+				$(document).on("vclick", "#contribute_btn", function(){
+					$("#commentform")[0].reset();
 				});
 				$(".cancel").click(function(){
 					event.preventDefault();
@@ -163,11 +224,13 @@ $time = time();
 						$("#nodisgo").remove();			
 						$("#result tbody").prepend(data);
 						$('.deleteMe').eq(0).button();
+						$('.upvoteMe').eq(0).button();
 						$( "#popupLogin" ).popup( "close" );
+						location.reload();
 					});
 				});
 				/* handles favorites */
-				$("#fav").click(function(event){	
+				$("#fav").click(function(){	
 					event.preventDefault();
 					$.post("favorite.php", $("#fav1").serialize(), function(data) {
 						$(".favBut").parent().hide();

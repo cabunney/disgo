@@ -30,11 +30,7 @@
 </head>
 			
 <body>
-
-
-		
-			
-<div data-role="page" href="profile" id="profile2">
+<div class="background" data-role="page" href="profile" id="profile2">
 
 	<div data-role="header">
 		<a style = "display:none;"></a>
@@ -43,15 +39,14 @@
 	</div><!-- /header -->
 	
 
-	<div data-role="content">	
+	<div data-role="content" >	
 	<?php
 		if ($userID == "wrong") {
-			echo "<div class = 'alert alert-error'><bold>Wrong login!</bold></div>";
+			echo "<div class = 'placeholder alert-error'>Your login or password was incorrect.</div>";
 		}
 	?>
-	<div id = "login_form">
+	<div id = "login_form" class="background">
 		<?php
-			
 			include 'login.php';
 		?>
 	</div> 
@@ -59,43 +54,42 @@
 	<div id = "prof">
 	<div id="result">
 	<p class="pageBanner">Your Favorites</p>
-<?php
-						include("config2.php");
-						$userID = $_GET['userID'];
-						$query1 = "SELECT * from favs WHERE userId = {$userID}";
+	<?php
+		include("config2.php");
+		$userID = $_GET['userID'];
+		$query1 = "SELECT * from favs WHERE userId = {$userID}";
 
-						$result1 = mysql_query($query1);
-						
-					
-						if (!$result1) {
-						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-						  
-						}
+		$result1 = mysql_query($query1);
+		
+	
+		if (!$result1) {
+		    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+		  
+		}
 
-						if (mysql_num_rows($result1) == 0) {
-						    echo "<tr class='pageBanner' id = 'nodisgo'><td>There are no favorites.</td></tr>";
-					
-						}
-						$count = 0; 
-						// While a row of data exists, put that row in $row as an associative array
-						// Note: If you're expecting just one row, no need to use a loop
-						// Note: If you put extract($row); inside the following loop, you'll
-						//       then create $userid, $fullname, and $userstatus
-						while ($row = mysql_fetch_assoc($result1)) {
-							$loc = $row["locId"];
-							$query2 = "SELECT * from locations WHERE id = {$loc} ORDER by id DESC";
+		if (mysql_num_rows($result1) == 0) {
+		    echo "<tr class='pageBanner' id = 'nodisgo'><td>There are no favorites.</td></tr>";
+	
+		}
+		$count = 0; 
+		// While a row of data exists, put that row in $row as an associative array
+		// Note: If you're expecting just one row, no need to use a loop
+		// Note: If you put extract($row); inside the following loop, you'll
+		//       then create $userid, $fullname, and $userstatus
+		while ($row = mysql_fetch_assoc($result1)) {
+			$loc = $row["locId"];
+			$query2 = "SELECT * from locations WHERE id = {$loc} ORDER by id DESC";
 
-							$result2 = mysql_query($query2);
-							$row2 = mysql_fetch_assoc($result2);
-							$locationName = $row2["title"];
-							$filename = $row2["filename"];
+			$result2 = mysql_query($query2);
+			$row2 = mysql_fetch_assoc($result2);
+			$locationName = $row2["title"];
+			$filename = $row2["filename"];
 /* <a style='text-align:right' href = 'location.php?id={$loc}' data-ajax='false'> */
-						echo "<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/></div><p class='profilePhotoText'>{$locationName}</p></a>";
-						   
-						}
-						mysql_free_result($result1);
-					?>
-
+		echo "<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/></div><p class='profilePhotoText'>{$locationName}</p></a>";
+		   
+		}
+		mysql_free_result($result1);
+	?>
 	</div>
 	</div>
 	
