@@ -46,6 +46,7 @@
 		})(jQuery);
 	</script>
  */
+window.optimizely = window.optimizely || [];
 
 ;(function ( $, window, document, undefined ) {
 	"use strict";
@@ -162,6 +163,8 @@
 			});
 		},
 		
+
+
 		//	Depending on the animation direction we set the margin of the slide
 		animateSlider: function( iElement, sDirection ){
 			var margin = sDirection === 'right' ? 0 : - config.iSliderWidth;
@@ -169,6 +172,8 @@
 				.animate({
 					marginLeft: margin
 				}, config.iTransitionSpeed, config.sTransitionType);
+				     window.optimizely.push(['trackEvent', 'swipe']);
+				     
 		},
 		
 		//	Callback for right oriented swipe movements

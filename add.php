@@ -117,7 +117,7 @@ $time = time();
 		    </tbody>
 		    </table>
 		    <div id = "submit_div">
-		    	<input type="button" value="Create Disgo!" onclick="startUploading()" />
+		    	<input type="button" class = "btn btn-large" value="Create Disgo!" onclick="startUploading()" />
 			</div>
                     
            </form>
