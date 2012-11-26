@@ -22,28 +22,23 @@ session_start();
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="blue">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" />
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
 
-	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="styleB.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
 
 
-
 	<script src="jquery-1.8.2.min.js"></script>
-			
-	<!--<script src="jquery.easing.js"></script>-->
-
+	<script src="jquery.easing.js"></script>
 	<!--<script src="jquery.easing.compatability.js"></script>-->
 
-	<!--<script src="jqm-basic-carousel.js"></script>-->
+	<script src="jqm-basic-carousel.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 
 	<script src ="upload.js?<?php echo $time;?>"></script>
-
 
 	
 	
@@ -54,12 +49,10 @@ session_start();
 
 <!-- Start of first page: #one -->
 <div data-role="page" id="index2">
-		<script src="//cdn.optimizely.com/js/140191330.js"></script>
+			<script src="//cdn.optimizely.com/js/140191330.js"></script>
 <script type="text/javascript">
-var CE_SNAPSHOT_NAME = "Optimizely Disgo page: New slider - with buttons, and black bar with link";
+var CE_SNAPSHOT_NAME = "Optimizely Disgo page: Old slider - no buttons";
 </script>
-
-<script src="bootstrap.js"></script>
 
 <script type="text/javascript">
 setTimeout(function(){var a=document.createElement("script");
@@ -67,13 +60,11 @@ var b=document.getElementsByTagName("script")[0];
 a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0013/5826.js?"+Math.floor(new Date().getTime()/3600000);
 a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 </script>
-
 	<div data-role="header">
 		<!-- <a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>	 -->
-		<a href ="#" class = "no-border"><span><span class = "pull-left">Current location: </span><span id = "latbox" class = "smallspan"></span><span class = "pull-left">° N  </span><span id = "longbox" class = "smallspan"></span><span class = "pull-left">° W</span></a>
+		<a href ="#"><span ><span id = "latbox" class = "smallspan"></span>° N  <span id = "longbox" class = "smallspan"></span>° W</span></a>
 		<h1 id = "header_title"><img src = "disgo_logo"></img></h1>
-
-		<a href="add.php?<?php echo $time; ?>" id="add" data-icon="custom" class = "top_bar_button top_bar_button2"></a>
+		<a href="add.php?<?php echo $time; ?>" id="add" data-icon="custom" class = "top_bar_button"></a>
 	</div><!-- /header -->
 	
 
@@ -91,57 +82,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 				});
 		</script>
 		<!-- <div onclick = "distance(300,300,1)">Click here</div> -->
-		<div id="myCarousel" class="carousel slide" style = "display:none;">
-		  <!-- Carousel items -->
-		  <div class="carousel-inner">
-		   <!--  <div class="active item">
-		    	<img src = "uploads/1352420340hoover.jpeg">
-		    	<div class = "carousel-caption"><h4>Comment1</h4><p>Content</p></div>
-		    </div>
-
-		    <div class="item">Two</div>
-		    <div class="item">End</div> -->
-
-		    <?php
-						include("config2.php");
-
-						$sql = "SELECT * from locations";
-
-						$result = mysql_query($sql);
-
-						if (!$result) {
-						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-						  
-						}
-
-						if (mysql_num_rows($result) == 0) {
-						    echo "There are no disgos.";
-					
-						}
-						$count = 0; 
-						// While a row of data exists, put that row in $row as an associative array
-						// Note: If you're expecting just one row, no need to use a loop
-						// Note: If you put extract($row); inside the following loop, you'll
-						//       then create $userid, $fullname, and $userstatus
-						while ($row = mysql_fetch_assoc($result)) {
-							$filename = $row["filename"];
-							$id = $row["id"];
-							$title = $row["title"];
-							$lat = $row["lat"];
-							$long = $row["lng"];
-
-							echo "<div class = 'item' name = {$lat} title = {$long}><div class = 'bounding-box' style = 'background-image:url(uploads/{$filename});'></div><div class ='carousel-caption'><h4><a href = 'location.php?id={$id}&user=&{$time}'  class = 'link_pic' data-ajax = 'false'>{$title}<span class ='pull-right'>&rsaquo;</span></a></h4></div></div>";
-						    $count = $count + 1; 
-						}
-
-						mysql_free_result($result);
-					?>
-		  </div>
-		  <!-- Carousel nav -->
-		  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-		  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-		</div>
-		<!-- <div class="carousel-wrapper">
+		<div class="carousel-wrapper">
 			<div class="carousel">
 					<?php
 						include("config2.php");
@@ -171,7 +112,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 							$lat = $row["lat"];
 							$long = $row["lng"];
 
-							echo "<div id='slide-{$count}' name = {$lat} title = {$long} class='slide')><a href = 'location.php?id={$id}&user=&{$time}'  class = 'link_pic' data-ajax = 'false'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
+							echo "<div id='slide-{$count}' name = {$lat} title = {$long} class='slide' style = 'background-image:url(uploads/{$filename});'><a href = 'location.php?id={$id}&user=&{$time}'  class = 'link_pic' data-ajax = 'false'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
 						    $count = $count + 1; 
 						}
 
@@ -180,7 +121,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 			</div>
 		</div>
 		<nav class="carousel-position">
-			<span class="position" id = "dots"> -->
+			<span class="position" id = "dots">
 				<!-- <em class="on">•</em> -->
 <!-- 
 				<?php 
@@ -191,8 +132,8 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 
 				?>
 				 -->
-			<!-- </span>
-		</nav> -->
+			</span>
+		</nav>
 		
 		
 		
@@ -221,20 +162,12 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 
 
 <script type = "text/javascript">
-			// (function($){
-			// 	$(".carousel-wrapper").carousel();
-			// })(jQuery);	
-
-
-window.optimizely = window.optimizely || [];
-$('.carousel-control').click( function() {
-     window.optimizely.push(['trackEvent', 'swipe']);
-    
-});
+			(function($){
+				$(".carousel-wrapper").carousel();
+			})(jQuery);	
 $('.link_pic').live("mousedown", function() {
      window.optimizely.push(['trackEvent', 'click_link']);
 });
-
 				$('#add').click(function(){
 		var link = $(this).attr('href');
 	  		$.mobile.changePage(
@@ -278,51 +211,18 @@ $('.link_pic').live("mousedown", function() {
 			   //<div id=currLocation></div>
 	}	
 
-$(document).bind('pageshow', function(event){
-		setup();
-  		
-
-	 })
-
-	function setup(callback) {
-		// $('.item').first().addClass('active');
-		var h = $( window ).height();
-		h = h-71-41;
-
-		$('.bounding-box').each(function() {
-			$(this).css('height',h);
-		})
-
+	$(document).ready(function() { 
 		if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(getPosition);
 		 } else {
 			alert("Geolocation is not supported by this browser.").alert();
 	     }
 
-	     // $(".carousel-wrapper").carousel();
-	    
-	     // $('.carousel').carousel({
-	     // 	interval: false
-	     // });
-	     
-	     // callback();
+	     				$(".carousel-wrapper").carousel();
 
-		     $("#myCarousel").show("slow",function(){
-	    			 // $('.item').addClass('active');
-	    			 $('.carousel').carousel({
-				     	interval: false
-				     })
-			 		
- 		 });
-		     
-	}
+  		
 
-	setup(function() {
-		
-		// var name = $(".active .carousel-caption h4").text();
-		// alert(name);
-		
-	});
+	 })
 
 	function getPosition(position) {
 		// $("#popupBasic").append(position.coords.latitude + "<font-weight = bold>  latitude, " + position.coords.longitude + " longitude");
@@ -330,10 +230,10 @@ $(document).bind('pageshow', function(event){
 			     //alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
 			   //<div id=currLocation></div>
 		$("#latbox").html(Math.round( position.coords.latitude));
-		$("#longbox").html(Math.round( position.coords.longitude));
+				$("#longbox").html(Math.round( position.coords.longitude));
 
-		var test = 0; 
-		$(".item").each(function() {
+
+		$(".slide").each(function() {
   			var lat1 = parseFloat($(this).attr("name"));
   			var lon1 = parseFloat($(this).attr("title"));
 
@@ -356,25 +256,10 @@ $(document).bind('pageshow', function(event){
 				// $(this).html(dist);
 
 
-			if (dist > 2) {
-				if ($(".item").length == 1) {
-					$(this).remove(); 
-					$('<p>There are no disgos within 5km of your location. Add a disgo for your current location by pressing the + in the top right corner.</p>').insertAfter('#myCarousel');
-					$("#myCarousel").remove();
-
-
-				} else {
-					$(this).remove();
-				}
-				
-
-			} else if (test == 0) {
-				$(this).addClass('active');
-				test = 1;
-			}  
-
-			if ($(".item").length == 1) {
-				$('.carousel-control').remove();
+			if (dist > 5) {
+				$(this).remove();
+			} else {
+				$("#dots").append("<em>•</em>");
 			}
 		})
 
