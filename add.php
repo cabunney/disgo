@@ -22,6 +22,8 @@ $time = time();
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
 
+	<!-- <link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" /> -->
+
 	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
@@ -53,12 +55,26 @@ $time = time();
 
 
   <div class="upload_form_cont">
+
 		 <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php" class = "add_form">
+			<input type="hidden" name="long" id="long" >
+			<input type="hidden" name="lat" id="lat" >
+
 		 	<table class = "form_table"> 
+		 	<thead>
+		 		<tr><th class = "large_grey"><div>Longitude: <span id = "long1">0</span>° Latitude: <span id = "lat1">0</span>°</div></th></tr>
+		 	</thead>
 			<tbody>
 				<!-- <tr class = "row_label">
 					<td><label for="title">Name of current place:</label></td>
 				</tr> -->
+				<!-- <tr>
+					<td><label for="long">Longitude: </label><input type="text" name="long" id="long" value = "10" /></td>
+				</tr>
+				<tr>
+					<td><label for="lat">Latitude: </label><input type="text" name="long" id="lat" /></td>
+				</tr> -->
+
 				<tr>
 					<td><input type="text" name="title" id="title" placeholder="Name of current place..." class = "title"/></td>
 				</tr>
@@ -106,18 +122,35 @@ $time = time();
                     
            </form>
 		<script type = 'text/javascript'>
-	// $('.ex_button').click(function(){
-	// 	var link = $(this).attr('href');
-	//   $.mobile.changePage(
-	//     link,
-	//     {
-	//       allowSamePageTransition : true,
-	//       transition              : 'none',
-	//       showLoadMsg             : false,
-	//       reloadPage              : true
-	//     }
-	//   );
-	// });
+	
+
+			$(function () {
+			     $(document).ready(function () {
+			     	getLocation();
+			     });
+			 });
+
+			 function getLocation() {
+			     if (navigator.geolocation) {
+			        navigator.geolocation.getCurrentPosition(showPosition);
+			     } else {
+			         alert("Geolocation is not supported by this browser.").alert();
+			     }
+			 }
+
+			 function showPosition(position) {
+			 	
+			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
+			 		$("#long1").html(position.coords.longitude);
+			 		$("#lat1").html(position.coords.latitude);
+			 		$("#lat").val(position.coords.latitude);
+			 		$("#long").val(position.coords.longitude);
+
+
+ 				// $("#long1").replaceWith(position.coords.longitude);	
+ 				// $("#lat1").replaceWith(position.coords.latitude);
+ 			}		 	
+
 
 
 </script>

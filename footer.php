@@ -21,5 +21,11 @@ $("a[data-ajax='false']").bind("click",
             return false;
         }
 });
+
+
+$(document).ready(function() {
+	$("#profile").attr("href", "profile.php?userID="+localStorage.getItem('userID'));
+});
+
 </script>
 

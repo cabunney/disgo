@@ -7,11 +7,11 @@ $email = mysql_real_escape_string($_POST['email']);
 
 		if (!isset($username) || !isset($password) || !isset($email) ) {
 	
-			header("Location: login.php#signup");
+			header("Location:profile.php");
 }
 
 		elseif (empty($username) || empty($password) || empty($email)) {
-					header("Location: login.php#signup");
+					header("Location:profile.php");
 
 			} 
 		else {
@@ -24,7 +24,7 @@ $email = mysql_real_escape_string($_POST['email']);
 				$row = mysql_fetch_array($result);
 				$_SESSION['id'] = $row['id'];
 		
-				header("Location: profile.php?id={$_SESSION['id']}");
+				header("Location: setLocal.php?userID={$_SESSION['id']}");
 
 		}	
 	

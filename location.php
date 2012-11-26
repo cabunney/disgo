@@ -9,10 +9,10 @@ $time = time();
 ?>
 <!DOCTYPE html> 
 <html>
-
 <head>
 	<?php
 		include("config2.php");
+
 		$place = $_GET['id'];
 		$query2 = "SELECT * from locations where id = '".$place."'";
 		$result2 = mysql_query($query2);
@@ -20,7 +20,6 @@ $time = time();
 		$title = $row2["title"];
 		$filename = $row2["filename"];
 	?>
-
 	<title>Disgo | <?php echo $title; ?></title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,187 +27,230 @@ $time = time();
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="white_theme.css" />
-
-	
-	
+	<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
 
 	<link rel="stylesheet" href="style.css?<?php echo $time; ?>" />
 	<link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" />
 
-	<link rel="apple-touch-icon" href="appicon.png" />
-	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="images/appicon.png" />
+	<link rel="apple-touch-startup-image" href="images/startup.png">
 	
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
-	
-	
 </head> 
-
-
 <body> 
-
-<!-- Start of first page: #one -->
-<div data-role="page" id="location1">
-	<div data-role="header">
-		<a href="index.php?<?php echo $time; ?>" id="back" data-icon="custom" class = "top_bar_button" data-ajax = "false" ></a>
-		<h1><?php echo $title?></h1>
-		<a href="#" id="fav" data-icon="custom" class = "top_bar_button"></a>
-	</div>
-	
-	<div data-role="content">	
-	
+	<!-- Start of first page: #one -->
+	<div data-role="page" id="location1">
+		<div data-role="header">
+			<h1 id = "header_title"><?php echo $title?></h1>	
+		</div>
 		<!-- photo container --> 
-		<div class="disgoProfilePhoto">
-		<img src="uploads/<?php echo $filename; ?>"/>
-			<p class="disgoProfilePhotoText">10 comments | 200 photos <br>0.6 miles away</p>
-		</div>
-
-		<!-- add a comment popup / comment form --> 
-
-		<div id = "popupContribute" data-role="popup" data-theme="a" data-overlay-theme="c">
-		
-		<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">		
-		
-			<form action="submit_comment.php" id="commentform" method="post" />
-
-				<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less" id = "textarea"></textarea>
-
-				<fieldset class="ui-grid-a">
-				
-				<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
-				<div class="ui-block-b">
-				<button type = "submit" data-theme="b"  id = "comment" href = "#" class = "comment">Comment</button></div>	 	
-				<input type="hidden" name="place" id="place"/>
-			    </fieldset>
+		<div data-role="content">	
+			<div class="crop"><img src="uploads/<?php echo $filename; ?>"/>
+			<!-- <p class="disgoProfilePhotoText">10 comments | 200 photos <br>0.6 miles away</p>-->	
+			</div>
+	 
+		 	 <form action="favorite.php" id="fav1" method="post" />
+					<input type = "hidden" name = "userId" id = "userId" value = 0 />
+					<input type = "hidden" name = "locId" id = "locId" value = <?php echo $place; ?> />
+					<button type = "submit" data-role="button" data-icon="fastar" data-iconpos="notext" data-mini="false" data-inline="true" data-theme="b" href="#" id="fav" class = "favBut"></button>
 			</form>
-
-		
-	</div>
-			
-		<!-- add comments !-->
-<script type = "text/javascript">
-		$(".cancel").click(function(){
-			event.preventDefault();
-			$( "#popupLogin" ).popup( "close" )
-		});
-		$(".comment").click(function(event){
-			
-			event.preventDefault();
-			$("#place").val(<?php echo $place; ?>);
-
-			$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
-				$("#nodisgo").remove();			
-				$("#result tbody").prepend("<tr><td>"+data+"</td></tr>");
-				$( "#popupLogin" ).popup( "close" );
-			
-			});
-		});
-
-		$('#back').click(function(){
-		var link = $(this).attr('href');
-	  $.mobile.changePage(
-	    link,
-	    {
-	      allowSamePageTransition : true,
-	      transition              : 'none',
-	      showLoadMsg             : false,
-	      reloadPage              : true
-	    }
-	  );
-	});
-
-<!-- favorite star -->
-	$('#fav').click(function(){
-		var link = $(this).attr('href');
-		var x = localStorage.getItem('userID');
-			if (x == ""){
-		<div class="hover">  
-<a href="#" id="fav" class="btn btn-success" rel="popover" data-content="You are not logged in.  Click on the profile tab to enable favoriting!"></a>  
-		</div>
-		<script>  
-			$(function ()  
-			<!-- this hover thing doesn't work -->
-				$('#fav').popover({placement:'bottom'});  
-			});  
-		</script> 	
-			} else {
-					<!-- change to yellow -->
-					
-					<!-- add to database as a member of set of location id's in favs column of each user-->
-			}
-	});
-
-</script>
-
-<script type = "text/javascript">
-$("a[data-ajax='false']").bind("click",
-    function() {
-        if (this.href) {
-            location.href = this.href;
-            return false;
-        }
-});
-</script>
-
-		<!-- add a div container for new comments -->
-
-<div id="result">
-<table class = "table">
-<thead>
-	<tr><th><span id = "comments_label">Comments</span> <a href="#popupLogin" data-rel="popup"  data-role="button" data-transition="pop" data-inline="true" class = "btn btn-mini pull-right"id = "contribute_btn">Contribute</a></th></tr>
-	</thead>
-<tbody>
-<?php
-						include("config.php");
-						
-						$query1 = "SELECT * from comments WHERE location = {$place} ORDER by id DESC";
-
-						$result1 = mysql_query($query1);
-						
-					
-						if (!$result1) {
-						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-						  
-						}
-
-						if (mysql_num_rows($result1) == 0) {
-						    echo "<tr id = 'nodisgo'><td>There are no comments for this Disgo.</td></tr>";
-					
-						}
-						$count = 0; 
-						// While a row of data exists, put that row in $row as an associative array
-						// Note: If you're expecting just one row, no need to use a loop
-						// Note: If you put extract($row); inside the following loop, you'll
-						//       then create $userid, $fullname, and $userstatus
-						while ($row = mysql_fetch_assoc($result1)) {
-							$comment = $row["comment"];
-//							$id = $row["id"];
-							$creator = $row["creator"];
-
-							echo "<tr><td>{$comment}</td></tr>";
-						    $count = $count + 1; 
-						}
-
-						mysql_free_result($result1);
-					?>
-					</tbody>
-					</table>
-</div>
-	</div><!-- /content -->
 	
 	
-	<?php
-		$local_state = "ui-btn-active ui-state-persist";
-		$global_state = "";
-		$profile_state = "";
-		include 'footer.php'; 
-	?>
-	
-
-</div><!-- /page one -->
-
-
-
-
+			<!-- add a comment popup / comment form --> 
+			<div id = "popupContribute" data-role="popup" data-theme="a" data-overlay-theme="c">
+					<div id = "popupLogin" data-role="popup" data-theme="a" data-overlay-theme="c">		
+						<form action="submit_comment.php" id="commentform" method="post" />
+							<textarea cols="40" rows="8" maxlength="140" name="comment" placeholder="140 characters or less" id = "textarea"></textarea>
+							<fieldset class="ui-grid-a">
+							<input type = "hidden" id = "creatorComment" name = "creatorComment" />
+							<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel">Cancel</button></div>
+							<div class="ui-block-b">
+								<button type = "submit" data-theme="b"  id = "comment" href = "#" class = "comment">Comment</button></div>	 	
+							<input type="hidden" name="place" id="place"/>
+						    </fieldset>
+						</form>
+					</div>
+				</div>
+			<!-- add a div container for new comments -->
+			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="faplus" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div>
+			<div id="result">
+				<?php
+				include("config.php");
+				$query1 = "SELECT * from comments WHERE location = {$place} ORDER by upvotes DESC";
+				$result1 = mysql_query($query1);
+				if (!$result1) {
+				    echo "Could not successfully run query ($sql) from DB: " . mysql_error(); 
+				}
+				if (mysql_num_rows($result1) == 0) {
+				    echo "<div id = 'nodisgo' class='placeholder'>There are no comments for this Disgo yet.</div>";
+				}
+				$count = 0;
+				// While a row of data exists, put that row in $row as an associative array
+				// Note: If you're expecting just one row, no need to use a loop
+				// Note: If you put extract($row); inside the following loop, you'll
+				//       then create $userid, $fullname, and $userstatus
+				while ($row = mysql_fetch_assoc($result1)) {
+					$comment = $row["comment"];
+					$id = $row["id"];
+					$counter = $row["id"];
+					$creator = $row["creator"];
+					$upvotes = $row["upvotes"];
+					echo 
+					"<table class='commentBox' id='".$id."'>
+						<tr>
+							<td data-creator='$creator'>
+								<a  href='#popupVote' class='vote btn btn-mini pull-left {$creator}' data-rel='popup'  data-role='button' data-transition='pop' data-icon='resize-vertical' data-iconpos='notext' data-inline='true'></a>
+							<td class='alignment' rowspan='3'>
+								{$comment}
+							</td>
+							<td rowspan='3'>
+								<a style = 'display:none;' href='#popupDelete' class='deleteMe btn btn-mini pull-right {$creator}' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='remove-circle' data-iconpos='notext' data-inline='true'></a>
+			    			</td>
+				    	</tr>
+				    	<tr>
+				    		<td>
+				    			<p class = 'counter' id = 'counter{$id}'>{$upvotes}</p>
+				    		</td>
+				    	</tr>								
+				    </table>";
+				    $count = $count + 1;
+				}
+				mysql_free_result($result1);
+				?>
+			</div>
+			<!-- confirmation of delete comment popup -->
+			<div style="display: block;" id = "popupVote" class="deleteComment" data-role="popup" data-icon="resize-vertical" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
+				<p style="text-align: center; font-size: 16px;">Downvote or upvote this comment?</p>
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a">
+						<form action="downvote.php" method="post" id="downvote">
+							<button data-theme="c" href = "#"  class = "downvote" style="font-size: 12px;">
+								Downvote
+								<input type="hidden" name="place" id="place" class="place1"/>
+							</button>
+						</form>
+					</div>
+					<div class="ui-block-b">
+						<form action="upvote.php" method="post" id="upvote">
+							<button type = "submit" data-theme="b" href = "#" class = "upvote" style="font-size: 12px;">
+								Upvote
+								<input type="hidden" name="place" id="place" class="place1"/>
+							</button>
+						</form>
+					</div>	 	
+				</fieldset>
+			</div>
+			<!-- confirmation of delete comment popup -->
+			<div style="display: block;" id = "popupDelete" class="deleteComment" data-role="popup" data-icon="delete" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
+				<p style="text-align: center; font-size: 16px;">Are you sure you want to delete this comment?</p>
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel" style="font-size: 12px;">Cancel</button></div>
+					<div class="ui-block-b">
+						<form action="delete_comment.php" method="post">
+							<button type = "submit" data-theme="b" href = "#" class = "confirm" style="font-size: 12px;">
+								Delete
+								<input type="hidden" name="place" id="place" class="place1"/>
+							</button>
+						</form>
+					</div>	 	
+				</fieldset>
+			</div>
+			
+			<script type = "text/javascript">
+/* 			<!-- adds voting to comment --> */
+				$(".vote").click(function() {
+					var tempId = $(this).parents('table').attr("id");
+					$(".upvote").attr("name", tempId);
+					$(".downvote").attr("name", tempId);
+				});
+				$(".downvote").click(function(event){
+					event.preventDefault();
+					$(".place1").val($(this));
+					var tempId2 = $(this).attr("name");
+					var counterID = "#counter" + tempId2;
+					$.post("downvote.php", {place:tempId2}, function(data) {
+						$( "#popupVote" ).popup( "close" );
+    					$( counterID ).html(function(i, val) { return +val-1 });
+					});
+				});
+				$(".upvote").click(function(event){	
+					event.preventDefault();
+					$(".place1").val($(this));
+					var tempId2 = $(this).attr("name");
+					var counterID = "#counter" + tempId2;
+					$.post("upvote.php", {place:tempId2}, function(data) {
+						$( "#popupVote" ).popup( "close" );
+    					$( counterID ).html(function(i, val) { return +val+1 });
+					});
+				});
+/* 			<!-- adds deleting to comment --> */
+				$(".cancel").click(function(){
+					event.preventDefault();
+					$( "#popupDelete" ).popup( "close" )
+				});
+				$(".deleteMe").click(function() {
+					var tempId = $(this).parents('table').attr("id");
+					$(".confirm").attr("name", tempId);
+				});
+				$(".confirm").click(function(event){	
+					event.preventDefault();
+					$(".place1").val($(this));
+					var tempId2 = $(this).attr("name");
+					$.post("delete_comment.php", {place:tempId2}, function(data) {
+						$("#"+tempId2).remove();
+						$( "#popupDelete" ).popup( "close" );
+					});
+				});
+				$("a[data-ajax='false']").bind("click",
+				    function() {
+				        if (this.href) {
+				            location.href = this.href;
+				            return false;
+				        }
+				});
+/* handles cancel & comment options for contribute button */
+				$(document).on("vclick", "#contribute_btn", function(){
+					$("#commentform")[0].reset();
+				});
+				$(".cancel").click(function(){
+					event.preventDefault();
+					$( "#popupLogin" ).popup( "close" )
+				});
+				$(".comment").click(function(event){
+					event.preventDefault();
+					$("#place").val(<?php echo $place; ?>);
+					$.post("submit_comment.php", $("#commentform").serialize(), function(data) {
+						$("#nodisgo").remove();			
+						$("#result tbody").prepend(data);
+						$('.deleteMe').eq(0).button();
+						$('.upvoteMe').eq(0).button();
+						$( "#popupLogin" ).popup( "close" );
+						location.reload();
+					});
+				});
+				/* handles favorites */
+				$("#fav").click(function(){	
+					event.preventDefault();
+					$.post("favorite.php", $("#fav1").serialize(), function(data) {
+						$(".favBut").parent().hide();
+						$("#fav1").append(data);			
+					});
+				});
+				/* local storage (userid stored here */
+				$(document).ready(function() {
+					$("#creatorComment").val(localStorage.getItem('userID'));
+					$("." + localStorage.getItem('userID')).show();
+					$("#userId").val(localStorage.getItem('userID'));
+				});
+			</script>
+		</div><!-- /content -->
+		<?php
+			$local_state = "ui-btn-active ui-state-persist";
+			$global_state = "";
+			$profile_state = "";
+			include 'footer.php'; 
+		?>
+	</div><!-- /page one -->
 </body>
 </html>

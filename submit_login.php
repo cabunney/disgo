@@ -6,10 +6,10 @@ $password = md5(mysql_real_escape_string($_POST['password']));
 
 if (!isset($username) || !isset($password)) {
 
-	header("Location: login.php");
+	header("Location: profile.php?userID=wrong");
 }
 elseif (empty($username) || empty($password)) {
-	header("Location: login.php");
+	header("Location: profile.php?userID=wrong");
 			} else {
 
 	$result = mysql_query("select * from users where username ='$username' AND password='$password'");
@@ -20,10 +20,10 @@ elseif (empty($username) || empty($password)) {
 		$_SESSION['id'] = $row['id'];
 		
 		}
-		header("Location: index.php?userID={$_SESSION['id']}");
+		header("Location: setLocal.php?userID={$_SESSION['id']}");
 
 	} else {
-	header("Location: login.php");
+	header("Location: profile.php?userID=wrong");
 		}
 	}
 ?>

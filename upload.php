@@ -18,6 +18,9 @@ header("Pragma: no-cache");
 			}
 			// $sTitle = null;
 			$sTitle = $_POST["title"];
+			$sLat = $_POST["lat"];
+
+			$sLong = $_POST["long"];
 			$sFileName = $_FILES['image_file']['name'];
 			$sFileType = $_FILES['image_file']['type'];
 			$sFileSize = bytesToSize1024($_FILES['image_file']['size'], 1);
@@ -29,7 +32,7 @@ header("Pragma: no-cache");
 
 
 			}
-			$query = "INSERT INTO locations (title, filename) VALUES ('$sTitle', '$filename')";
+			$query = "INSERT INTO locations (title, filename, lng, lat) VALUES ('$sTitle', '$filename', '$sLong', '$sLat')";
 			$result = mysql_query($query);
 			if ($result) {
 				// What do the following lines do? Answer -> #1
@@ -37,6 +40,7 @@ header("Pragma: no-cache");
 				$result2 = mysql_query($query2);
 				$row2 = mysql_fetch_assoc($result2);
 				echo $row2["id"];
+				// echo $sLat;
 					
 			}
 			
