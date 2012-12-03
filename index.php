@@ -1,12 +1,12 @@
 <?php
 //Set no caching
-header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
-header("Cache-Control: no-store, no-cache, must-revalidate"); 
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
+// header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+// header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+// header("Cache-Control: no-store, no-cache, must-revalidate"); 
+// header("Cache-Control: post-check=0, pre-check=0", false);
+// header("Pragma: no-cache");
 $time = time(); 
-session_start();
+// session_start();
 ?>
 
 		<?php 
@@ -26,6 +26,7 @@ session_start();
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
 
 	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
@@ -70,10 +71,12 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 
 	<div data-role="header">
 		<!-- <a  id="locate" data-icon="custom" class = "top_bar_button" data-rel="popup" href="#popupBasic" data-position-to="window"></a>	 -->
-		<a href ="#" class = "no-border"><span><span class = "pull-left">Current location: </span><span id = "latbox" class = "smallspan"></span><span class = "pull-left">° N  </span><span id = "longbox" class = "smallspan"></span><span class = "pull-left">° W</span></a>
+		<!-- <a href ="#" class = "no-border"><span><span class = "pull-left">Current location: </span><span id = "latbox" class = "smallspan"></span><span class = "pull-left">° N  </span><span id = "longbox" class = "smallspan"></span><span class = "pull-left">° W</span></a> -->
+		
+		<a href="index.php" data-role="button" data-mini = "true" data-icon="refresh" data-ajax = 'false' data-iconpos=""><span class = "left_header_button">Refresh</span></a>
 		<h1 id = "header_title"><img src = "disgo_logo"></img></h1>
-
-		<a href="add.php?<?php echo $time; ?>" id="add" data-icon="custom" class = "top_bar_button top_bar_button2"></a>
+		<a href="add.php" data-icon="plus" data-iconpos="right" data-ajax = "false" id = "add_new_header">Add new</a>
+		<!-- <a href="add.php?<?php echo $time; ?>" data-icon="gear" data-theme="b" class="ui-btn-right top_bar_button top_bar_button2">Add new</a> -->
 	</div><!-- /header -->
 	
 
@@ -91,6 +94,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 				});
 		</script>
 		<!-- <div onclick = "distance(300,300,1)">Click here</div> -->
+		<div id = "current_coords" class = "alert alert-info"></div>
 		<div id="myCarousel" class="carousel slide" style = "display:none;">
 		  <!-- Carousel items -->
 		  <div class="carousel-inner">
@@ -118,7 +122,8 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 						    echo "There are no disgos.";
 					
 						}
-						$count = 0; 
+						$count = 0;
+						// $locations =  
 						// While a row of data exists, put that row in $row as an associative array
 						// Note: If you're expecting just one row, no need to use a loop
 						// Note: If you put extract($row); inside the following loop, you'll
@@ -130,7 +135,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 							$lat = $row["lat"];
 							$long = $row["lng"];
 
-							echo "<div class = 'item' name = {$lat} title = {$long}><div class = 'bounding-box' style = 'background-image:url(uploads/{$filename});'></div><div class ='carousel-caption'><h4><a href = 'location.php?id={$id}&user=&{$time}'  class = 'link_pic' data-ajax = 'false'>{$title}<span class ='pull-right'>&rsaquo;</span></a></h4></div></div>";
+							echo "<div class = 'item' name = {$lat} title = {$long}><div class = 'bounding-box' style = 'background-image:url(uploads/{$filename});'></div><div class ='carousel-caption'><h4><a href = 'location.php?id={$id}&user=&{$time}'  class = 'link_pic' data-ajax = 'false'><span class = 'place_title'>{$title}</span><span class ='pull-right right_arrow_link'>&rsaquo;</span><span class = 'distance_away pull-right'></span></a></h4></div></div>";
 						    $count = $count + 1; 
 						}
 
@@ -141,58 +146,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 		  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 		  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 		</div>
-		<!-- <div class="carousel-wrapper">
-			<div class="carousel">
-					<?php
-						include("config2.php");
-
-						$sql = "SELECT * from locations";
-
-						$result = mysql_query($sql);
-
-						if (!$result) {
-						    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-						  
-						}
-
-						if (mysql_num_rows($result) == 0) {
-						    echo "There are no disgos.";
-					
-						}
-						$count = 0; 
-						// While a row of data exists, put that row in $row as an associative array
-						// Note: If you're expecting just one row, no need to use a loop
-						// Note: If you put extract($row); inside the following loop, you'll
-						//       then create $userid, $fullname, and $userstatus
-						while ($row = mysql_fetch_assoc($result)) {
-							$filename = $row["filename"];
-							$id = $row["id"];
-							$title = $row["title"];
-							$lat = $row["lat"];
-							$long = $row["lng"];
-
-							echo "<div id='slide-{$count}' name = {$lat} title = {$long} class='slide')><a href = 'location.php?id={$id}&user=&{$time}'  class = 'link_pic' data-ajax = 'false'><div class = 'slide_container'><div class = 'description'>{$title}</div><div class = 'info'></div></div></a></div>";
-						    $count = $count + 1; 
-						}
-
-						mysql_free_result($result);
-					?>
-			</div>
-		</div>
-		<nav class="carousel-position">
-			<span class="position" id = "dots"> -->
-				<!-- <em class="on">•</em> -->
-<!-- 
-				<?php 
-					while ($count > 1) {
-						echo "<em>•</em>";
-					    $count = $count - 1; 
-					}
-
-				?>
-				 -->
-			<!-- </span>
-		</nav> -->
+		
 		
 		
 		
@@ -287,7 +241,7 @@ $(document).bind('pageshow', function(event){
 	function setup(callback) {
 		// $('.item').first().addClass('active');
 		var h = $( window ).height();
-		h = h-71-41;
+		h = h-71-10;
 
 		$('.bounding-box').each(function() {
 			$(this).css('height',h);
@@ -329,7 +283,7 @@ $(document).bind('pageshow', function(event){
 			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
 			     //alert(position.coords.latitude + " latitude," + position.coords.longitude + " longitude");
 			   //<div id=currLocation></div>
-		$("#latbox").html(Math.round( position.coords.latitude));
+		$("#current_coords").html("Your current location: <strong>" + Math.round( position.coords.latitude) + "° N&nbsp" + Math.round( position.coords.longitude) + "° W </strong>");
 		$("#longbox").html(Math.round( position.coords.longitude));
 
 		var test = 0; 
@@ -356,11 +310,12 @@ $(document).bind('pageshow', function(event){
 				// $(this).html(dist);
 
 
-			if (dist > 2) {
+			if (dist > 5) {
 				if ($(".item").length == 1) {
 					$(this).remove(); 
-					$('<p>There are no disgos within 5km of your location. Add a disgo for your current location by pressing the + in the top right corner.</p>').insertAfter('#myCarousel');
+					$('<div class = "alert alert-error alert-block"><h4>Oh snap!</h4> There are no Disgos within 5km of your current location.</div><a href="add.php" type="button" data-role="button" data-icon="plus" data-inline="true" data-iconpos="right" data-ajax = "false" class = "no_disgo_add">Add a Disgo for your current location</a>').insertAfter('#myCarousel');
 					$("#myCarousel").remove();
+					$("#add_new_header").remove();
 
 
 				} else {
@@ -371,7 +326,10 @@ $(document).bind('pageshow', function(event){
 			} else if (test == 0) {
 				$(this).addClass('active');
 				test = 1;
-			}  
+				$(this).find(".distance_away").text(Math.round(dist * 100)/100+ " km away");
+			} else {
+				$(this).find(".distance_away").text(Math.round(dist * 100)/100 + " km away");
+			}
 
 			if ($(".item").length == 1) {
 				$('.carousel-control').remove();
