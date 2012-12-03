@@ -41,8 +41,8 @@ $time = time();
 <body> 
 	<!-- Start of first page: #one -->
 	<div data-role="page" id="location1">
-		<div data-role="header">
-			<h1 id = "header_title"><?php echo $title?></h1>	
+		<div data-role="header" class = "header_height">
+			<h4 class = "header_title"><span class = "title_location"><?php echo $title?></span></h4>	
 		</div>
 		<!-- photo container --> 
 		<div data-role="content">	
@@ -73,8 +73,8 @@ $time = time();
 					</div>
 				</div>
 			<!-- add a div container for new comments -->
-			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="faplus" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div>
 			<div id="result">
+
 				<?php
 				include("config.php");
 				$query1 = "SELECT * from comments WHERE location = {$place} ORDER by upvotes DESC";
@@ -84,7 +84,18 @@ $time = time();
 				}
 				if (mysql_num_rows($result1) == 0) {
 				    echo "<div id = 'nodisgo' class='placeholder'>There are no comments for this Disgo yet.</div>";
-				}
+				} 
+
+					echo "
+					<table class = 'table location_table' id='{$id}'>
+						<tbody>
+							 <tr class=''>
+      							<td colspan = '3' id = 'button_cell'><div align='center' class='contribute'><a href='#popupLogin' data-rel='popup' data-icon='faplus' data-iconpos='right' data-role='button' data-transition='pop'  type = 'button' id = 'contribute_btn'>Share What You Know</a></div>
+								</td>
+    						</tr>
+    					
+    					";
+				
 				$count = 0;
 				// While a row of data exists, put that row in $row as an associative array
 				// Note: If you're expecting just one row, no need to use a loop
@@ -97,25 +108,27 @@ $time = time();
 					$creator = $row["creator"];
 					$upvotes = $row["upvotes"];
 					echo 
-					"<table class='commentBox' id='".$id."'>
-						<tr>
+					"
+						<tr id = '{$id}'>
+							
 							<td data-creator='$creator'>
-								<a  href='#popupVote' class='vote btn btn-mini pull-left {$creator}' data-rel='popup'  data-role='button' data-transition='pop' data-icon='resize-vertical' data-iconpos='notext' data-inline='true'></a>
-							<td class='alignment' rowspan='3'>
-								{$comment}
+								<span class = 'pull-left'><a  href='#popupVote' class='vote btn btn-mini pull-left {$creator}' data-rel='popup'  data-role='button' data-transition='pop' data-icon='resize-vertical' data-iconpos='right' data-inline='true' name = '{$id}'><span class = 'counter' id = 'counter{$id}'>{$upvotes}</span></a></span>
+								
+							<td class='alignment'>
+								<div class = 'comment_text'>{$comment}</div>
 							</td>
-							<td rowspan='3'>
-								<a style = 'display:none;' href='#popupDelete' class='deleteMe btn btn-mini pull-right {$creator}' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='remove-circle' data-iconpos='notext' data-inline='true'></a>
+							<td>
+								<a style = 'display:none;' href='#popupDelete' class='deleteMe btn btn-mini pull-right {$creator}' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-inline='true' name = '{$id}'></a>
 			    			</td>
 				    	</tr>
-				    	<tr>
-				    		<td>
-				    			<p class = 'counter' id = 'counter{$id}'>{$upvotes}</p>
-				    		</td>
-				    	</tr>								
-				    </table>";
+				    	";
 				    $count = $count + 1;
 				}
+			
+					echo 
+					"</tbody>
+					</table";
+				
 				mysql_free_result($result1);
 				?>
 			</div>
@@ -160,7 +173,7 @@ $time = time();
 			<script type = "text/javascript">
 /* 			<!-- adds voting to comment --> */
 				$(".vote").click(function() {
-					var tempId = $(this).parents('table').attr("id");
+					var tempId = $(this).attr("name");
 					$(".upvote").attr("name", tempId);
 					$(".downvote").attr("name", tempId);
 				});
@@ -190,7 +203,7 @@ $time = time();
 					$( "#popupDelete" ).popup( "close" )
 				});
 				$(".deleteMe").click(function() {
-					var tempId = $(this).parents('table').attr("id");
+					var tempId = $(this).attr("name");
 					$(".confirm").attr("name", tempId);
 				});
 				$(".confirm").click(function(event){	

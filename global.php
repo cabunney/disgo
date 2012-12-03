@@ -1,12 +1,12 @@
 <?php
 //Set no caching
-header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
-header("Cache-Control: no-store, no-cache, must-revalidate"); 
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
+// header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+// header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+// // header("Cache-Control: no-store, no-cache, must-revalidate"); 
+// header("Cache-Control: post-check=0, pre-check=0", false);
+// header("Pragma: no-cache");
 $time = time(); 
-session_start();
+// session_start();
 ?>
 
 <!DOCTYPE html> 
@@ -22,6 +22,7 @@ session_start();
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
 
 	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
 	<link rel="apple-touch-icon" href="appicon.png" />
@@ -41,7 +42,7 @@ session_start();
 <div data-role="page" id="filter">
 
 	<div data-role="header">
-		<a href="global.php" id="refresh" data-icon="custom" class = "top_bar_button" data-ajax = "false"></a>
+		<a href="global.php" data-role="button" data-mini = "true" data-icon="refresh" data-ajax = 'false' data-iconpos=""><span class = "left_header_button">Refresh</span></a>
 		<h1>discover</h1>
 
 	</div><!-- /header -->
