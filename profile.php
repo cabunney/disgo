@@ -93,9 +93,8 @@
 /* <a style='text-align:right' href = 'location.php?id={$loc}' data-ajax='false'> */
 		echo "
 		<tr id= '{$loc}'>
-		<td>
-			<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/><p class='profilePhotoText'>{$locationName}</p></div></a></td>
-		<td>
+		<td colspan='2' class='alignment'>
+			<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/><p class='profilePhotoText'>{$locationName}</p></div></a>
 			<a href='#popupDelete' class='deleteMe deleteFavorite btn btn-mini pull-right' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-inline='true' name = '{$loc}'></a></td>
 			</tr>
 		";
