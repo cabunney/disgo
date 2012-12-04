@@ -47,7 +47,6 @@ $time = time();
 		<!-- photo container --> 
 		<div data-role="content">	
 			<div class="crop"><img src="uploads/<?php echo $filename; ?>"/>
-			<!-- <p class="disgoProfilePhotoText">10 comments | 200 photos <br>0.6 miles away</p>-->	
 			</div>
 	 
 		 	 <form action="favorite.php" id="fav1" method="post" />
@@ -73,7 +72,7 @@ $time = time();
 					</div>
 				</div>
 			<!-- add a div container for new comments -->
-			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="faplus" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div>
+			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="comments" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div>
 			<div id="result">
 				<?php
 				include("config.php");
