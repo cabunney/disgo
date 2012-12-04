@@ -72,8 +72,7 @@ $time = time();
 					</div>
 				</div>
 			<!-- add a div container for new comments -->
-<<<<<<< HEAD
-			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="comments" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div>
+<!-- 			<div align="center" class="contribute"><a href="#popupLogin" data-rel="popup" data-icon="comments" data-iconpos="right" data-role="button" data-transition="pop" class = "btn btn-mini" id = "contribute_btn">Share What You Know</a></div> -->
 			<div id="result">
 
 				<?php
@@ -91,7 +90,7 @@ $time = time();
 					<table class = 'table location_table' id='{$id}'>
 						<tbody>
 							 <tr class=''>
-      							<td colspan = '3' id = 'button_cell'><div align='center' class='contribute'><a href='#popupLogin' data-rel='popup' data-icon='faplus' data-iconpos='right' data-role='button' data-transition='pop'  type = 'button' id = 'contribute_btn'>Share What You Know</a></div>
+      							<td colspan = '3' id = 'button_cell'><div align='center' class='contribute'><a href='#popupLogin' data-rel='popup' data-icon='comments' data-iconpos='right' data-role='button' data-transition='pop'  type = 'button' id = 'contribute_btn'>Share What You Know</a></div>
 								</td>
     						</tr>
     					
@@ -133,7 +132,7 @@ $time = time();
 				mysql_free_result($result1);
 				?>
 			</div>
-			<!-- confirmation of delete comment popup -->
+			<!-- confirmation of upvoting popup -->
 			<div style="display: block;" id = "popupVote" class="deleteComment" data-role="popup" data-icon="resize-vertical" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
 				<p style="text-align: center; font-size: 16px;">Downvote or upvote this comment?</p>
 				<fieldset class="ui-grid-a">

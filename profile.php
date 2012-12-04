@@ -81,6 +81,7 @@
 		// Note: If you're expecting just one row, no need to use a loop
 		// Note: If you put extract($row); inside the following loop, you'll
 		//       then create $userid, $fullname, and $userstatus
+		echo "<table> <tbody>";
 		while ($row = mysql_fetch_assoc($result1)) {
 			$loc = $row["locId"];
 			$query2 = "SELECT * from locations WHERE id = {$loc} ORDER by id DESC";
@@ -90,14 +91,37 @@
 			$locationName = $row2["title"];
 			$filename = $row2["filename"];
 /* <a style='text-align:right' href = 'location.php?id={$loc}' data-ajax='false'> */
-		echo "<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/><p class='profilePhotoText'>{$locationName}</p></div></a>";
+		echo "
+		<tr id= '{$loc}'>
+		<td>
+			<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/><p class='profilePhotoText'>{$locationName}</p></div></a></td>
+		<td>
+			<a href='#popupDelete' class='deleteMe deleteFavorite btn btn-mini pull-right' data-rel='popup'  data-role='button' data-transition='pop'  data-icon='delete' data-iconpos='notext' data-inline='true' name = '{$loc}'></a></td>
+			</tr>
+		";
 		   
 		}
+		echo "</tbody>
+			</table>";
 		mysql_free_result($result1);
 	?>
 	</div>
 	</div>
 	
+	<div style="display: block;" id = "popupDelete" class="deleteFavorite" data-role="popup" data-icon="delete" data-iconpos="notext" data-theme="a" data-overlay-theme="c">
+		<p style="text-align: center; font-size: 16px;">Are you sure you want to delete this from your favorites?</p>
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a"><button data-theme="c" href = "#"  class = "cancel" style="font-size: 12px;">Cancel</button></div>
+			<div class="ui-block-b">
+				<form action="delete_favorite.php" method="post">
+					<button type = "submit" data-theme="b" href = "#" class = "confirm" style="font-size: 12px;">
+							Delete
+						<input type="hidden" name="place" id="place" class="place1"/>
+					</button>
+				</form>
+			</div>	 	
+		</fieldset>
+	</div>
 		
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -117,6 +141,25 @@
 				$('.pageBanner').remove();
 			}
 		});
+		
+	/* 			<!-- adds deleting to favorites --> */
+			$(".cancel").click(function(){
+				event.preventDefault();
+				$( "#popupDelete" ).popup( "close" )
+			});
+			$(".deleteMe").click(function() {
+				var tempId = $(this).attr("name");
+				$(".confirm").attr("name", tempId);
+			});
+			$(".confirm").click(function(event){	
+				event.preventDefault();
+				$(".place1").val($(this));
+				var tempId2 = $(this).attr("name");
+				$.post("delete_favorite.php", {place:tempId2}, function(data) {
+					$("#"+tempId2).remove();
+					$( "#popupDelete" ).popup( "close" );
+				});
+			});
 
 		$("#logoutprof").click(function() {
 			localStorage.removeItem('userID');
