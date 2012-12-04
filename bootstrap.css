@@ -162,7 +162,7 @@ body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  line-height: 20px;
+  /*line-height: 20px;*/
   color: #333333;
   background-color: #ffffff;
 }
@@ -174,7 +174,7 @@ a {
 
 a:hover {
   color: #005580;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .img-rounded {

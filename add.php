@@ -21,6 +21,7 @@ $time = time();
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
 
 	<!-- <link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" /> -->
 
@@ -46,7 +47,8 @@ $time = time();
 <!-- Start of first page: #one -->
 <div data-role="page" id="add1">
 	<div data-role="header">
-		<a href="index.php" id="ex" data-icon="custom" class = "top_bar_button ex_button" data-ajax = "false"></a>
+		<!-- <a href="index.php" id="ex" data-icon="custom" class = "top_bar_button ex_button" data-ajax = "false"></a> -->
+		<a href="index.php" data-icon="delete" data-iconpos="right" data-ajax = "false">Cancel</a>
 		<h1>Add New</h1>
 
 	</div><!-- /header -->
@@ -62,7 +64,7 @@ $time = time();
 
 		 	<table class = "form_table"> 
 		 	<thead>
-		 		<tr><th class = "large_grey"><div>Longitude: <span id = "long1">0</span>° Latitude: <span id = "lat1">0</span>°</div></th></tr>
+		 		<tr><th class = "large_grey"><div>Longitude: <span id = "long1">0</span>° N <br />Latitude: <span id = "lat1">0</span>° W</div></th></tr>
 		 	</thead>
 			<tbody>
 				<!-- <tr class = "row_label">
@@ -79,7 +81,7 @@ $time = time();
 					<td><input type="text" name="title" id="title" placeholder="Name of current place..." class = "title"/></td>
 				</tr>
 				<tr class = "row_label">
-					<td><div><label for="image_file">Select an image for this location.</label></div></td>
+					<td><div><label for="image_file">Snap an image of your current location.</label></div></td>
 				</tr>
 				<tr>
 					<td>

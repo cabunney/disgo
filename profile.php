@@ -21,7 +21,11 @@
 	
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="white_theme.css" />
+		<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
+
 	<link rel="stylesheet" href="style.css" />
+		<!-- <link rel="stylesheet" href="bootstrap.css" /> -->
+
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png" />
 	
@@ -32,9 +36,10 @@
 <body>
 <div class="background" data-role="page" href="profile" id="profile2">
 
-	<div data-role="header">
+	<div data-role="header" class = "header_height">
 		<a style = "display:none;"></a>
-		<h1 id = ""><?php echo $username; ?></h1>
+		<h4 class = "header_title"><span class = "title_location"><?php echo $username; ?></span></h4>	
+
 		<a href = "profile.php" id ="logoutprof" style = "display:none;" data-ajax = "false">Logout</a>
 	</div><!-- /header -->
 	
@@ -42,7 +47,7 @@
 	<div data-role="content" >	
 	<?php
 		if ($userID == "wrong") {
-			echo "<div class = 'placeholder alert-error'>Your login or password was incorrect.</div>";
+			echo "<div class = 'placeholder placeholder2'>Your login or password was incorrect.</div>";
 		}
 	?>
 	<div id = "login_form" class="background">
@@ -68,7 +73,7 @@
 		}
 
 		if (mysql_num_rows($result1) == 0) {
-		    echo "<tr class='pageBanner' id = 'nodisgo'><td>There are no favorites.</td></tr>";
+		    echo "<div class = 'placeholder placeholder2'><b> Uh-oh!</b> You have no favorites.</div><div class = 'instructions'>In order to favorite, enter a Disgo and press the star icon in the top right hand corner.</div>";
 	
 		}
 		$count = 0; 
@@ -85,7 +90,7 @@
 			$locationName = $row2["title"];
 			$filename = $row2["filename"];
 /* <a style='text-align:right' href = 'location.php?id={$loc}' data-ajax='false'> */
-		echo "<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/></div><p class='profilePhotoText'>{$locationName}</p></a>";
+		echo "<a href = 'location.php?id={$loc}' style='text-decoration:none; font-family: HelveticaNeue-Light;' data-ajax='false'><div class='cropProfile'><img src='uploads/{$filename}'/><p class='profilePhotoText'>{$locationName}</p></div></a>";
 		   
 		}
 		mysql_free_result($result1);
@@ -101,10 +106,15 @@
 			if (x == null || x == "") {
 				$("#login_form").show();
 				$("#prof").hide();
+				$(".header_height").hide();
 			} else {
 				$("#login_form").hide();
 				$("#logoutprof").show();
 
+			}
+			var len = $('.placeholder2').length;
+			if ( len > 0) {
+				$('.pageBanner').remove();
 			}
 		});
 
