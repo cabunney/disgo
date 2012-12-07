@@ -25,6 +25,8 @@ $time = time();
 	<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
 
 	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
+	<link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" />
+
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
 
@@ -43,7 +45,8 @@ $time = time();
 
 	<div data-role="header">
 		<a href="global.php" data-role="button" data-mini = "true" data-icon="refresh" data-ajax = 'false' data-iconpos=""><span class = "left_header_button">Refresh</span></a>
-		<h1>discover</h1>
+		<h4 class = "header_title">discover</h4>
+		<a href='#popsearch' data-rel='popup' data-icon='fasearch' data-iconpos='right' data-role='button' data-transition="slide" data-position-to="window" type = 'button'>Search</a>
 
 	</div><!-- /header -->
 
@@ -112,34 +115,67 @@ $time = time();
 
 </div>
 
-<script type = "text/javascript">
-$("a[data-ajax='false']").bind("click",
-    function() {
-        if (this.href) {
-            location.href = this.href;
-            return false;
-        }
-});
-</script>
+<div id = "popsearch" data-role="popup" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+				<div><a href="#" data-rel="back" data-role="button" data-mini="true" data-theme="b" data-icon="delete" class="ui-btn-right pull-right"><span class = "left_header_button">Close</span></a></div>
+				<br />
+				<br />
+				
+
+				<form action="search.php" id = "search_form" method = 'post'>
+					<input type="search" name = "query" id = "search_bar">
+				</form>
+	
+		<div class = "table_search">
+		<table class = "table">
+			<tbody class = "s_results">
+			</tbody>
+		</table>
+		</div>
+</div>
+
+
 
 </div> <!-- content -->	
 		
 
 <script type = "text/javascript">
-$("a[data-ajax='false']").bind("click",
-    function() {
-        if (this.href) {
-            location.href = this.href;
-            return false;
-        }
-});
+	$("a[data-ajax='false']").bind("click",
+	    function() {
+	        if (this.href) {
+	            location.href = this.href;
+	            return false;
+	        }
+	});
 
-$("#filter").unbind('pageinit');
-				$("#filter").bind( 'pageinit',function(event){ 
-					
-					$("#filter").find("#profile").attr("href", "profile.php?userID="+localStorage.getItem('userID'));
+	$("#search_bar").live("keyup", function(event) {
+		event.preventDefault();
+		var query_now = $("#search_bar").text();
+		$.post("search_disc.php", $("#search_form").serialize(), function(data) {
+			$(".s_results").html(data); 
+		});
+	  // alert('test');
+	});
 
-				});
+	$("#filter").unbind('pageinit');
+		$("#filter").bind( 'pageinit',function(event){ 
+			
+			$("#filter").find("#profile").attr("href", "profile.php?userID="+localStorage.getItem('userID'));
+
+		});
+
+		$( "#popsearch" ).on({
+	    popupbeforeposition: function() {
+	        var h = $( window ).height();
+	        var w = $(window).width();
+	        $( "#popsearch" ).css( "height", h );
+	        $( "#popsearch" ).css( "width", w );
+	    }
+	});
+
+
+	
+
+
 </script>
 
 

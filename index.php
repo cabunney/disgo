@@ -241,7 +241,7 @@ $(document).bind('pageshow', function(event){
 	function setup(callback) {
 		// $('.item').first().addClass('active');
 		var h = $( window ).height();
-		h = h-71-10;
+		h = h-71-50;
 
 		$('.bounding-box').each(function() {
 			$(this).css('height',h);
