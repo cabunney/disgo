@@ -312,6 +312,7 @@ tr.row_label td label{
 			text-align: left;
 			margin-top: 25px;
 			margin-left: 3%;
+			margin-bottom:16px;
 			max-width:45%;
 			color:white;
 			font-weight:normal;
@@ -412,7 +413,11 @@ tr.row_label td label{
 		}
 
 		.form_table td input {
-			width:100%; 
+			/*width:70%;*/
+			height:40px; 
+			font-size:24px;
+			line-height:40px;
+
 		}
 
 		#submit_div {
@@ -793,3 +798,79 @@ a:hover {
 	margin-right:auto;
 
 }
+
+#popsearch-popup {
+    /*right: 0 !important;
+    left: auto !important;*/
+    /*top:90px !important;*/
+}
+#popsearch {
+    width: 95%;
+    padding-top:50px;
+    border: 1px solid #000;
+    border-right: none;
+    background: rgba(0,0,0,.8);
+    margin: -1px 0;
+}
+#popsearch .ui-btn {
+    /*margin: 2em 15px;*/
+}
+
+#search_bar {
+	height:40px;
+	font-size:24px;
+
+}
+
+.table_search {
+	max-height:200px; 
+	overflow:scroll;
+}
+
+.s_result_title {
+	font-size:16px;
+	color:white;
+	font-family:'Helvetica';
+}
+
+.single_space {
+	line-height:16px;
+	font-weight: bold;
+	text-align:left;
+
+}
+
+.push_right {
+	padding-left:10px;
+}
+
+.push_down {
+	margin-bottom:10px;
+}
+
+.label_table {
+	line-height: 20px;
+margin-right: 10px;
+position: relative;
+top: -2px;
+}
+
+.push_up {
+	position:relative;
+	top:-20px;
+}
+
+.push_up_ex {
+	position:relative;
+	top:-90px;
+}
+
+#push_button{
+	width:100%;
+}
+
+
+/*.padding_button {
+	margin-bottom:30px;
+}*/
+

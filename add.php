@@ -23,9 +23,10 @@ $time = time();
 	<link rel="stylesheet" href="white_theme.css?<?php echo $time;?>" />
 	<link rel="stylesheet" href="jqm-icon-pack-2.1.2-fa.css">
 
-	<!-- <link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" /> -->
 
 	<link rel="stylesheet" href="style.css?<?php echo $time;?>" />
+		<link rel="stylesheet" href="bootstrap.css?<?php echo $time;?>" />
+
 	<link rel="apple-touch-icon" href="appicon.png" />
 	<link rel="apple-touch-startup-image" href="startup.png">
 
@@ -49,7 +50,7 @@ $time = time();
 	<div data-role="header">
 		<!-- <a href="index.php" id="ex" data-icon="custom" class = "top_bar_button ex_button" data-ajax = "false"></a> -->
 		<a href="index.php" data-icon="delete" data-iconpos="right" data-ajax = "false">Cancel</a>
-		<h1>Add New</h1>
+		<h4  class = "header_title">Add New</h4>
 
 	</div><!-- /header -->
 	
@@ -61,10 +62,12 @@ $time = time();
 		 <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php" class = "add_form">
 			<input type="hidden" name="long" id="long" >
 			<input type="hidden" name="lat" id="lat" >
+			<div id = "current_coords" class = "alert alert-info"></div>
 
-		 	<table class = "form_table"> 
+		
+		 	<table class = "form_table table"> 
 		 	<thead>
-		 		<tr><th class = "large_grey"><div>Longitude: <span id = "long1">0</span>° N <br />Latitude: <span id = "lat1">0</span>° W</div></th></tr>
+		 		<!-- <tr><th class = "large_grey"><div class = "single_space push_right">Longitude: <span id = "long1">0</span>° N <br />Latitude: <span id = "lat1">0</span>° W</div></th></tr> -->
 		 	</thead>
 			<tbody>
 				<!-- <tr class = "row_label">
@@ -78,19 +81,17 @@ $time = time();
 				</tr> -->
 
 				<tr>
-					<td><input type="text" name="title" id="title" placeholder="Name of current place..." class = "title"/></td>
+					<td><div class="well well-small">
+  						<h4><span class="badge badge-info label_table">1</span>Name this Disgo:</h2>
+							<p><input type="text" name="title" id="title" placeholder="Name of current place..." class = "title"/></p></div>
+
+						</td>
 				</tr>
 				<tr class = "row_label">
-					<td><div><label for="image_file">Snap an image of your current location.</label></div></td>
-				</tr>
-				<tr>
-					<td>
-						<div>
-                        
-                        <div><input type="file" name="image_file" id="image_file" onchange="fileSelected();" /></div>
-                    </div>
-                    
-                    <div id="fileinfo">
+					<td><div class="well well-small push_up">
+  						<h4><span class="badge badge-info label_table">2</span>Snap an image:</h4>
+							<p> <div><input type="file" name="image_file" id="image_file" onchange="fileSelected();" /></div></p></div>
+							 <div id="fileinfo">
                         <div id="filename"></div>
                         <div id="filesize"></div>
                         <div id="filetype"></div>
@@ -113,13 +114,18 @@ $time = time();
                         </div>
                         <div id="upload_response"></div>
                     </div>
-					</td>
+						</td>
+
+					
 				</tr>
+				
+			
 		    	
 		    </tbody>
 		    </table>
-		    <div id = "submit_div">
-		    	<input type="button" class = "btn btn-large" value="Create Disgo!" onclick="startUploading()" />
+			</div>
+		    <div id = "submit_div" class = "push_up_ex">
+		    	<input type="button" id = "push_button" class = "btn btn-large" value="Create Disgo!" onclick="startUploading()" />
 			</div>
                     
            </form>
@@ -143,8 +149,10 @@ $time = time();
 			 function showPosition(position) {
 			 	
 			 	//<div id = currLocation>position.coords.latitude + " latitude, " + position.coords.longitude + " longitude"</div>
-			 		$("#long1").html(position.coords.longitude);
-			 		$("#lat1").html(position.coords.latitude);
+			 		// $("#long1").html(position.coords.longitude);
+			 		// $("#lat1").html(position.coords.latitude);
+			 		$("#current_coords").html("Your current location: <strong><span id = 'lat1'>" + Math.round( position.coords.latitude) + "</span>° N&nbsp<span id = 'long1'>" + Math.round( position.coords.longitude) + "</span>° W </strong>");
+					$("#longbox").html(Math.round( position.coords.longitude));
 			 		$("#lat").val(position.coords.latitude);
 			 		$("#long").val(position.coords.longitude);
 
