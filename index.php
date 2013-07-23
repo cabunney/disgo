@@ -75,7 +75,7 @@ a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 		
 		<a href="index.php" data-role="button" data-mini = "true" data-icon="refresh" data-ajax = 'false' data-iconpos=""><span class = "left_header_button">Refresh</span></a>
 		<h1 id = "header_title"><img src = "disgo_logo"></img></h1>
-		<a href="add.php" data-icon="plus" data-iconpos="right" data-ajax = "false" id = "add_new_header">Add new</a>
+		<a href="add.php" data-icon="plus" data-iconpos="right" data-ajax = "false" id = "add_new_header">Add old</a>
 		<!-- <a href="add.php?<?php echo $time; ?>" data-icon="gear" data-theme="b" class="ui-btn-right top_bar_button top_bar_button2">Add new</a> -->
 	</div><!-- /header -->
 	
